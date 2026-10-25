@@ -1,0 +1,98 @@
+{
+  "sheet": "Inertia",
+  "startRow": 34,
+  "values": [
+    [
+      "Spell Name",
+      "Example Test Spell"
+    ],
+    [
+      "College:",
+      "Kinetics",
+      "Minimum Level:",
+      "1"
+    ],
+    [
+      "School:",
+      "Inertia",
+      "MP Cost:",
+      "1"
+    ],
+    [
+      "",
+      "",
+      "AP Cost:",
+      "2"
+    ],
+    [
+      "Element:",
+      "None",
+      "Sustain Cost:",
+      "None"
+    ],
+    [
+      "Type:",
+      "Defense"
+    ],
+    [
+      "Attack Type:",
+      "None",
+      "Duration:",
+      "1 minute"
+    ],
+    [
+      "Save:",
+      "None",
+      "Range:",
+      "10 m"
+    ],
+    [
+      "",
+      "",
+      "Sustain Range:",
+      "None"
+    ],
+    [
+      "Casting Methods:",
+      "",
+      "Target",
+      "One creature"
+    ],
+    [
+      "Sacrificial — Fatigue:",
+      "3",
+      "Area",
+      "None"
+    ],
+    [
+      "Sacrificial — Additional Cost:",
+      "None"
+    ],
+    [
+      "Scripted — Base Preparation Time:",
+      "5 minutes"
+    ],
+    [
+      "Ritual — Ritual Tier:",
+      "Quick (4 seconds)"
+    ],
+    [
+      "Description:",
+      "Synthetic test description.",
+      "Effect:",
+      "Synthetic test effect."
+    ],
+    [
+      "Cast Level",
+      "Upgrade"
+    ],
+    [
+      "Level 2:",
+      "Synthetic level 2 upgrade."
+    ],
+    [
+      "Spell Name",
+      ""
+    ]
+  ]
+}

@@ -17,6 +17,7 @@ jobs:
         with:
           node-version: '24'
       - run: npm install --no-audit --no-fund
+      - run: npm run test:import
       - run: npm run build
       - name: Verify generated pages
         run: |

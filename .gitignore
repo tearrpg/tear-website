@@ -4,3 +4,6 @@ dist/
 .env
 .env.*
 !.env.example
+
+# Generated spell records: source is the committed snapshot
+src/data/inertia-spells.json

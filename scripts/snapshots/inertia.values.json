@@ -1,0 +1,1243 @@
+{
+  "spreadsheetId": "18kR8W4xmUt_vSgri-JvJCjMppquKQeBsFidbtUyIrIQ",
+  "sheet": "Inertia",
+  "startRow": 34,
+  "endRow": 352,
+  "values": [
+    [
+      "Spell Name",
+      "Inertial Projectile Shield"
+    ],
+    [
+      "College:",
+      "Kinetics",
+      "Minimum Level:",
+      "1"
+    ],
+    [
+      "School:",
+      "Inertia",
+      "MP Cost:",
+      "1"
+    ],
+    [
+      "",
+      "",
+      "AP Cost:",
+      "1"
+    ],
+    [
+      "Element:",
+      "None",
+      "Sustain Cost:",
+      "None"
+    ],
+    [
+      "Type:",
+      "Defense"
+    ],
+    [],
+    [
+      "Attack Type:",
+      "None",
+      "Duration:",
+      "24 hours"
+    ],
+    [
+      "Save:",
+      "None",
+      "Range:",
+      "10 m"
+    ],
+    [
+      "",
+      "",
+      "Sustain Range:",
+      "None"
+    ],
+    [
+      "Casting Methods:",
+      "",
+      "Target",
+      "One creature"
+    ],
+    [
+      "Sacrificial — Fatigue:",
+      "1",
+      "Area",
+      "None"
+    ],
+    [
+      "Sacrificial — Additional Cost:",
+      "None"
+    ],
+    [
+      "Scripted — Base Preparation Time:",
+      "5 minutes"
+    ],
+    [
+      "Ritual — Ritual Tier:",
+      "Elaborate (1 minute)"
+    ],
+    [],
+    [
+      "Description:",
+      "An invisible inertial field protects one creature for up to 24 hours or until expended. It activates automatically against incoming concentrated physical projectiles traveling approximately 120 km/h or faster relative to the protected creature. The field arrests ordinary projectiles such as arrows, bolts, sling stones, and bullets, redirecting their kinetic energy into the surrounding ground or space. Heavy projectiles, such as cannonballs, exceed the basic shield's stopping capacity. Thrown objects and slow melee attacks usually fall below its activation threshold. Once struck by a projectile it can stop, the shield continues intercepting qualifying projectiles for approximately 0.25 seconds before collapsing. Recasting replaces the existing shield; only the strongest shield effect on a target applies. Shield layers granted by future higher-level upgrades are separate from stacking multiple castings.",
+      "Effect:",
+      "Automatically stops ordinary physical projectiles moving at approximately 120 km/h or more relative to the target. Lasts 24 hours or until triggered; protects for approximately 0.25 seconds after activation, then dissipates. Does not stop heavy siege projectiles. Multiple castings do not stack."
+    ],
+    [],
+    [
+      "Cast Level",
+      "Upgrade"
+    ],
+    [
+      "Level 2:"
+    ],
+    [
+      "Level 3:"
+    ],
+    [
+      "Level 4:"
+    ],
+    [
+      "Level 5:"
+    ],
+    [
+      "Level 6:"
+    ],
+    [
+      "Level 7:"
+    ],
+    [
+      "Level 8:"
+    ],
+    [
+      "Level 9:"
+    ],
+    [
+      "Level 10:"
+    ],
+    [],
+    [
+      "Spell Name",
+      "Slow Fall"
+    ],
+    [
+      "College:",
+      "Kinetics",
+      "Minimum Level:",
+      "1"
+    ],
+    [
+      "School:",
+      "Inertia",
+      "MP Cost:",
+      "1"
+    ],
+    [
+      "",
+      "",
+      "AP Cost:",
+      "1"
+    ],
+    [
+      "Element:",
+      "None",
+      "Sustain Cost:",
+      "None"
+    ],
+    [
+      "Type:",
+      "Movement"
+    ],
+    [],
+    [
+      "Attack Type:",
+      "None",
+      "Duration:",
+      "30 minutes"
+    ],
+    [
+      "Save:",
+      "None",
+      "Range:",
+      "10 m"
+    ],
+    [
+      "",
+      "",
+      "Sustain Range:",
+      "None"
+    ],
+    [
+      "Casting Methods:",
+      "",
+      "Target",
+      "One creature"
+    ],
+    [
+      "Sacrificial — Fatigue:",
+      "1",
+      "Area",
+      "None"
+    ],
+    [
+      "Sacrificial — Additional Cost:",
+      "None"
+    ],
+    [
+      "Scripted — Base Preparation Time:",
+      "5 minutes"
+    ],
+    [
+      "Ritual — Ritual Tier:",
+      "Quick (4 seconds)"
+    ],
+    [],
+    [
+      "Description:",
+      "An invisible inertial field limits the target creature's downward falling speed to 2 m/s (7.2 km/h) for 30 minutes, allowing safe, convenient descents and gentle landings. The effect operates automatically whenever the target falls, safely reducing the speed of a creature already falling faster than this limit. The target cannot adjust descent speed, hover, or steer using the spell. The target may dismiss Slow Fall at any time, but dismissal ends the spell permanently until recast. Recasting on the same target resets its duration to 30 minutes rather than stacking. If the spell expires or is dismissed in midair, the target resumes accelerating normally under gravity.",
+      "Effect:",
+      "Caps downward falling speed at 2 m/s for 30 minutes. Automatic; no steering, hovering, or speed adjustment. Recasting resets duration. Dismissal ends the spell; falling resumes normally if it ends midair."
+    ],
+    [],
+    [
+      "Cast Level",
+      "Upgrade"
+    ],
+    [
+      "Level 2:"
+    ],
+    [
+      "Level 3:"
+    ],
+    [
+      "Level 4:"
+    ],
+    [
+      "Level 5:"
+    ],
+    [
+      "Level 6:"
+    ],
+    [
+      "Level 7:"
+    ],
+    [
+      "Level 8:"
+    ],
+    [
+      "Level 9:"
+    ],
+    [
+      "Level 10:"
+    ],
+    [],
+    [
+      "Spell Name",
+      "Inertial Brace"
+    ],
+    [
+      "College:",
+      "Kinetics",
+      "Minimum Level:",
+      "1"
+    ],
+    [
+      "School:",
+      "Inertia",
+      "MP Cost:",
+      "1"
+    ],
+    [
+      "",
+      "",
+      "AP Cost:",
+      "2"
+    ],
+    [
+      "Element:",
+      "None",
+      "Sustain Cost:",
+      "None"
+    ],
+    [
+      "Type:",
+      "Enhancement"
+    ],
+    [],
+    [
+      "Attack Type:",
+      "None",
+      "Duration:",
+      "30 minutes"
+    ],
+    [
+      "Save:",
+      "None",
+      "Range:",
+      "Touch"
+    ],
+    [
+      "",
+      "",
+      "Sustain Range:",
+      "None"
+    ],
+    [
+      "Casting Methods:",
+      "",
+      "Target",
+      "One willing creature"
+    ],
+    [
+      "Sacrificial — Fatigue:",
+      "2",
+      "Area",
+      "None"
+    ],
+    [
+      "Sacrificial — Additional Cost:",
+      "None"
+    ],
+    [
+      "Scripted — Base Preparation Time:",
+      "5 minutes"
+    ],
+    [
+      "Ritual — Ritual Tier:",
+      "Elaborate (1 minute)"
+    ],
+    [],
+    [
+      "Description:",
+      "The caster reinforces a willing creature's resistance to external physical forces without hindering its voluntary movement. For 30 minutes, the target gains a +4 + caster's ATR bonus to checks and saving throws made to resist involuntary physical displacement, including being pushed, pulled, dragged, knocked backward, or knocked prone by an external physical force. The bonus also applies against displacement from strong winds, currents, and similar environmental forces. The spell does not reduce damage, prevent grappling itself, negate gravity, stop magical teleportation, or make the target immovable; sufficiently strong forces can still displace the target. The effect requires no sustain cost and may be dismissed by the target on demand, ending the spell.",
+      "Effect:",
+      "+4 + caster's ATR to checks and saving throws against involuntary physical displacement, including push, pull, drag, knockback, and physically induced prone. Lasts 30 minutes without sustain. No damage reduction or absolute anchoring; target may dismiss at will."
+    ],
+    [],
+    [
+      "Cast Level",
+      "Upgrade"
+    ],
+    [
+      "Level 2:"
+    ],
+    [
+      "Level 3:"
+    ],
+    [
+      "Level 4:"
+    ],
+    [
+      "Level 5:"
+    ],
+    [
+      "Level 6:"
+    ],
+    [
+      "Level 7:"
+    ],
+    [
+      "Level 8:"
+    ],
+    [
+      "Level 9:"
+    ],
+    [
+      "Level 10:"
+    ],
+    [],
+    [
+      "Spell Name",
+      "Inertial Suppression Field"
+    ],
+    [
+      "College:",
+      "Kinetics",
+      "Minimum Level:",
+      "1"
+    ],
+    [
+      "School:",
+      "Inertia",
+      "MP Cost:",
+      "1"
+    ],
+    [
+      "",
+      "",
+      "AP Cost:",
+      "2"
+    ],
+    [
+      "Element:",
+      "None",
+      "Sustain Cost:",
+      "1"
+    ],
+    [
+      "Type:",
+      "Defense"
+    ],
+    [],
+    [
+      "Attack Type:",
+      "None",
+      "Duration:",
+      "Sustained"
+    ],
+    [
+      "Save:",
+      "None",
+      "Range:",
+      "Self"
+    ],
+    [
+      "",
+      "",
+      "Sustain Range:",
+      "Self"
+    ],
+    [
+      "Casting Methods:",
+      "",
+      "Target",
+      "Self"
+    ],
+    [
+      "Sacrificial — Fatigue:",
+      "6",
+      "Area",
+      "1 m radius"
+    ],
+    [
+      "Sacrificial — Additional Cost:",
+      "None"
+    ],
+    [
+      "Scripted — Base Preparation Time:",
+      "15 minutes"
+    ],
+    [
+      "Ritual — Ritual Tier:",
+      "Elaborate (1 minute)"
+    ],
+    [],
+    [
+      "Description:",
+      "The caster sustains an invisible, self-centered field extending 1 m in radius that arrests the propagation of damaging area effects, regardless of damage type or material. When a fireball, breath weapon, cone, line, shockwave, or other damaging area effect encounters the field, the first hex affected within the field takes its normal effect, but the effect cannot propagate farther into protected hexes. If an area effect originates inside the field, its initial affected hex is still affected, but it cannot spread to additional protected hexes. Thus, dragon breath approaching from outside dissipates at the leading edge before reaching the caster, whereas breath originating directly in the caster's hex can still damage the caster. The field suppresses friendly and hostile AoE propagation alike. It does not reduce direct damage in the first affected hex, stop single-target attacks, or remove environmental hazards already present. The field moves with the caster and remains active only while sustained.",
+      "Effect:",
+      "Sustained self-centered 1 m radius field. Damaging AoEs of any type affect only the first hex they reach within the field; propagation to further protected hexes stops. Effects originating within the field affect their initial hex only. Works on friendly and hostile effects. No protection against direct attacks or existing hazards."
+    ],
+    [],
+    [
+      "Cast Level",
+      "Upgrade"
+    ],
+    [
+      "Level 2:"
+    ],
+    [
+      "Level 3:"
+    ],
+    [
+      "Level 4:"
+    ],
+    [
+      "Level 5:"
+    ],
+    [
+      "Level 6:"
+    ],
+    [
+      "Level 7:"
+    ],
+    [
+      "Level 8:"
+    ],
+    [
+      "Level 9:"
+    ],
+    [
+      "Level 10:"
+    ],
+    [],
+    [
+      "Spell Name",
+      "Slow"
+    ],
+    [
+      "College:",
+      "Kinetics",
+      "Minimum Level:",
+      "1"
+    ],
+    [
+      "School:",
+      "Inertia",
+      "MP Cost:",
+      "1"
+    ],
+    [
+      "",
+      "",
+      "AP Cost:",
+      "2"
+    ],
+    [
+      "Element:",
+      "None",
+      "Sustain Cost:",
+      "None"
+    ],
+    [
+      "Type:",
+      "Impairment"
+    ],
+    [],
+    [
+      "Attack Type:",
+      "None",
+      "Duration:",
+      "ATR rounds"
+    ],
+    [
+      "Save:",
+      "Fortitude",
+      "Range:",
+      "10 m"
+    ],
+    [
+      "",
+      "",
+      "Sustain Range:",
+      "None"
+    ],
+    [
+      "Casting Methods:",
+      "",
+      "Target",
+      "One creature"
+    ],
+    [
+      "Sacrificial — Fatigue:",
+      "3",
+      "Area",
+      "None"
+    ],
+    [
+      "Sacrificial — Additional Cost:",
+      "None"
+    ],
+    [
+      "Scripted — Base Preparation Time:",
+      "15 minutes"
+    ],
+    [
+      "Ritual — Ritual Tier:",
+      "Quick (4 seconds)"
+    ],
+    [],
+    [
+      "Description:",
+      "The caster imposes an inertial restriction on one creature, limiting its maximum rate of movement for ATR rounds. An unwilling target may resist with a Fortitude saving throw; a willing target may forgo the save. The target cannot move more than 5 m per AP, regardless of movement type, direction, or bonuses. This restriction applies to movement from any source, not only voluntary Move actions. Movement that would otherwise be 5 m per AP or less is unaffected.",
+      "Effect:",
+      "The target's movement is capped at 5 m per AP for ATR rounds, regardless of movement type or bonuses. An unwilling target gets a Fortitude save; a willing target may forgo it. No sustain."
+    ],
+    [],
+    [
+      "Cast Level",
+      "Upgrade"
+    ],
+    [
+      "Level 2:"
+    ],
+    [
+      "Level 3:"
+    ],
+    [
+      "Level 4:"
+    ],
+    [
+      "Level 5:"
+    ],
+    [
+      "Level 6:"
+    ],
+    [
+      "Level 7:"
+    ],
+    [
+      "Level 8:"
+    ],
+    [
+      "Level 9:"
+    ],
+    [
+      "Level 10:"
+    ],
+    [],
+    [
+      "Spell Name",
+      "Immovable Object"
+    ],
+    [
+      "College:",
+      "Kinetics",
+      "Minimum Level:",
+      "1"
+    ],
+    [
+      "School:",
+      "Inertia",
+      "MP Cost:",
+      "3"
+    ],
+    [
+      "",
+      "",
+      "AP Cost:",
+      "3"
+    ],
+    [
+      "Element:",
+      "None",
+      "Sustain Cost:",
+      "None"
+    ],
+    [
+      "Type:",
+      "Enhancement"
+    ],
+    [],
+    [
+      "Attack Type:",
+      "None",
+      "Duration:",
+      "ATR minutes"
+    ],
+    [
+      "Save:",
+      "None",
+      "Range:",
+      "Touch"
+    ],
+    [
+      "",
+      "",
+      "Sustain Range:",
+      "None"
+    ],
+    [
+      "Casting Methods:",
+      "",
+      "Target",
+      "One object"
+    ],
+    [
+      "Sacrificial — Fatigue:",
+      "3",
+      "Area",
+      "None"
+    ],
+    [
+      "Sacrificial — Additional Cost:",
+      "None"
+    ],
+    [
+      "Scripted — Base Preparation Time:",
+      "5 minutes"
+    ],
+    [
+      "Ritual — Ritual Tier:",
+      "Elaborate (1 minute)"
+    ],
+    [],
+    [
+      "Description:",
+      "The caster enchants one object, fixing it in place relative to its surroundings for ATR minutes. To establish the enchantment, the caster must maintain uninterrupted physical contact with the object for 6 seconds while holding it stationary. The enchanted object resists displacement with force equivalent to 100 times its own weight, up to a maximum of 100 kg of force (the weight of a 100 kg mass). The enchantment does not increase the object's actual mass or durability. When a force greater than its resistance is applied, the enchantment yields and the object can move; when the force drops below the threshold, it immediately becomes stationary again at its new position. Exceeding the threshold does not end the spell. No saving throw is granted. The effect expires after ATR minutes and requires no sustain.",
+      "Effect:",
+      "After 6 seconds of uninterrupted touch while stationary, one object remains fixed in place for ATR minutes. Resists displacement up to 100× its own weight, capped at 100 kg equivalent. Greater force moves it; it reanchors when that force ceases. Does not increase mass or durability. No save or sustain."
+    ],
+    [],
+    [
+      "Cast Level",
+      "Upgrade"
+    ],
+    [
+      "Level 2:"
+    ],
+    [
+      "Level 3:"
+    ],
+    [
+      "Level 4:"
+    ],
+    [
+      "Level 5:"
+    ],
+    [
+      "Level 6:"
+    ],
+    [
+      "Level 7:"
+    ],
+    [
+      "Level 8:"
+    ],
+    [
+      "Level 9:"
+    ],
+    [
+      "Level 10:"
+    ],
+    [],
+    [
+      "Spell Name",
+      "Stasis"
+    ],
+    [
+      "College:",
+      "Kinetics",
+      "Minimum Level:",
+      "3"
+    ],
+    [
+      "School:",
+      "Inertia",
+      "MP Cost:",
+      "6"
+    ],
+    [
+      "",
+      "",
+      "AP Cost:",
+      "6"
+    ],
+    [
+      "Element:",
+      "None",
+      "Sustain Cost:",
+      "None"
+    ],
+    [
+      "Type:",
+      "Utility"
+    ],
+    [],
+    [
+      "Attack Type:",
+      "None",
+      "Duration:",
+      "ATR hours"
+    ],
+    [
+      "Save:",
+      "None",
+      "Range:",
+      "Touch"
+    ],
+    [
+      "",
+      "",
+      "Sustain Range:",
+      "None"
+    ],
+    [
+      "Casting Methods:",
+      "",
+      "Target",
+      "One willing creature"
+    ],
+    [
+      "Sacrificial — Fatigue:",
+      "15",
+      "Area",
+      "None"
+    ],
+    [
+      "Sacrificial — Additional Cost:",
+      "None"
+    ],
+    [
+      "Scripted — Base Preparation Time:",
+      "1 hour"
+    ],
+    [
+      "Ritual — Ritual Tier:",
+      "Elaborate (1 minute)"
+    ],
+    [],
+    [
+      "Description:",
+      "The caster places one conscious, willing living creature into stasis. The target must be capable of knowingly accepting the spell; unconscious creatures cannot be targeted, and non-sapient creatures require sufficient intelligence to willingly accept its effect. The caster chooses a duration of up to ATR hours when casting. The creature and a thin envelope of surrounding air become locked in a static state: the occupant cannot move, act, perceive, breathe, metabolize, age, or experience the passage of time until released. A smooth, opaque, closely conforming ovoid forms around the creature's posture, enclosing the immobilized air. The cocoon is rigid but movable as a whole; it can be picked up, carried, or transported, while its contents remain fixed relative to one another. The cocoon grants DR 100 against damage. At casting, the caster chooses whether to leave an accessible magical button that can be pressed to terminate stasis early, or to create no button. With no button, the effect lasts until the chosen duration expires unless otherwise dispelled. When stasis ends, the creature resumes normal activity. No sustain cost.",
+      "Effect:",
+      "Conscious, knowingly willing living creature enters a movable, opaque ovoid of complete stasis (DR 100) for a caster-set duration up to ATR hours. No action, perception, metabolism, aging, or passage of subjective time. Optional magical button releases early; otherwise expires at the chosen time. No save or sustain."
+    ],
+    [],
+    [
+      "Cast Level",
+      "Upgrade"
+    ],
+    [
+      "Level 2:"
+    ],
+    [
+      "Level 3:"
+    ],
+    [
+      "Level 4:"
+    ],
+    [
+      "Level 5:"
+    ],
+    [
+      "Level 6:"
+    ],
+    [
+      "Level 7:"
+    ],
+    [
+      "Level 8:"
+    ],
+    [
+      "Level 9:"
+    ],
+    [
+      "Level 10:"
+    ],
+    [],
+    [
+      "Spell Name",
+      "Inertial Diffusion"
+    ],
+    [
+      "College:",
+      "Kinetics",
+      "Minimum Level:",
+      "1"
+    ],
+    [
+      "School:",
+      "Inertia",
+      "MP Cost:",
+      "3"
+    ],
+    [
+      "",
+      "",
+      "AP Cost:",
+      "3"
+    ],
+    [
+      "Element:",
+      "None",
+      "Sustain Cost:",
+      "None"
+    ],
+    [
+      "Type:",
+      "Defense"
+    ],
+    [],
+    [
+      "Attack Type:",
+      "None",
+      "Duration:",
+      "24 hours"
+    ],
+    [
+      "Save:",
+      "None",
+      "Range:",
+      "Touch"
+    ],
+    [
+      "",
+      "",
+      "Sustain Range:",
+      "None"
+    ],
+    [
+      "Casting Methods:",
+      "",
+      "Target",
+      "One willing creature"
+    ],
+    [
+      "Sacrificial — Fatigue:",
+      "2",
+      "Area",
+      "None"
+    ],
+    [
+      "Sacrificial — Additional Cost:",
+      "None"
+    ],
+    [
+      "Scripted — Base Preparation Time:",
+      "15 minutes"
+    ],
+    [
+      "Ritual — Ritual Tier:",
+      "Elaborate (1 minute)"
+    ],
+    [],
+    [
+      "Description:",
+      "The caster surrounds one willing creature with an inertial field that spreads the force of physical impacts across a larger area, reducing concentrated injury. For 24 hours, the target has DR 5 against physical attacks, with a pool of 10 damage that can be prevented in total. Each point of damage prevented reduces the remaining pool by 1. When the pool is depleted, the spell collapses. Recasting this spell on the target restores its pool to the maximum of 10 and renews its 24-hour duration; multiple castings do not stack or increase the maximum. This spell does not restore existing injuries.",
+      "Effect:",
+      "For 24 hours, a willing creature gains DR 5 vs. physical attacks, up to 10 total damage prevented. Prevention consumes the pool point for point; the effect collapses at 0. Recasting refills the pool and renews the duration, but cannot stack. No healing."
+    ],
+    [],
+    [
+      "Cast Level",
+      "Upgrade"
+    ],
+    [
+      "Level 2:"
+    ],
+    [
+      "Level 3:"
+    ],
+    [
+      "Level 4:"
+    ],
+    [
+      "Level 5:"
+    ],
+    [
+      "Level 6:"
+    ],
+    [
+      "Level 7:"
+    ],
+    [
+      "Level 8:"
+    ],
+    [
+      "Level 9:"
+    ],
+    [
+      "Level 10:"
+    ],
+    [],
+    [
+      "Spell Name",
+      "Inertial Tether"
+    ],
+    [
+      "College:",
+      "Kinetics",
+      "Minimum Level:",
+      "2"
+    ],
+    [
+      "School:",
+      "Inertia",
+      "MP Cost:",
+      "3"
+    ],
+    [
+      "",
+      "",
+      "AP Cost:",
+      "3"
+    ],
+    [
+      "Element:",
+      "None",
+      "Sustain Cost:",
+      "None"
+    ],
+    [
+      "Type:",
+      "Control"
+    ],
+    [],
+    [
+      "Attack Type:",
+      "None",
+      "Duration:",
+      "ATR hours"
+    ],
+    [
+      "Save:",
+      "None",
+      "Range:",
+      "5 m"
+    ],
+    [
+      "",
+      "",
+      "Sustain Range:",
+      "None"
+    ],
+    [
+      "Casting Methods:",
+      "",
+      "Target",
+      "One creature"
+    ],
+    [
+      "Sacrificial — Fatigue:",
+      "6",
+      "Area",
+      "None"
+    ],
+    [
+      "Sacrificial — Additional Cost:",
+      "None"
+    ],
+    [
+      "Scripted — Base Preparation Time:",
+      "15 minutes"
+    ],
+    [
+      "Ritual — Ritual Tier:",
+      "Elaborate (1 minute)"
+    ],
+    [],
+    [
+      "Description:",
+      "The caster establishes an inertial tether linking themselves to one creature within 5 m. For ATR hours, both participants resist movement that would change the distance separating them; moving without changing their separation is unaffected. The tether begins at strength 10 and imposes a movement-speed penalty in meters equal to its remaining strength whenever either participant spends an AP moving in a way that would change their separation. For each such movement AP, that participant may make a Strength check against DC 10 + cast level + caster's ATR. Each point by which the result exceeds the DC permanently reduces the tether's shared strength by 1 (minimum 0); failed checks do not restore its strength. Apply this reduction before calculating the movement allowed for that AP; the resulting penalty may reduce distance-changing movement to 0 m. Both participants always use the same remaining tether strength, regardless of who weakened it. The tether breaks when its strength reaches 0 or its duration expires. It cannot otherwise be dismissed voluntarily, and a participant's death does not end it. The 5 m range is required only when casting; it does not limit later separation. No saving throw and no sustain cost.",
+      "Effect:",
+      "Caster and one creature are tethered for ATR hours (initial strength 10). Both take a movement penalty equal to remaining tether strength in meters when changing their distance apart. Each movement AP permits STR vs. DC 10 + cast level + caster's ATR; excess success permanently lowers shared strength by that amount, applied before movement. Ends at strength 0 or duration expiry, not on death. No save; no voluntary dismissal before Level 6."
+    ],
+    [],
+    [
+      "Cast Level",
+      "Upgrade"
+    ],
+    [
+      "Level 2:"
+    ],
+    [
+      "Level 3:"
+    ],
+    [
+      "Level 4:"
+    ],
+    [
+      "Level 5:"
+    ],
+    [
+      "Level 6:",
+      "Spell can be dismissed at will by the caster."
+    ],
+    [
+      "Level 7:"
+    ],
+    [
+      "Level 8:"
+    ],
+    [
+      "Level 9:"
+    ],
+    [
+      "Level 10:"
+    ],
+    [],
+    [
+      "Spell Name"
+    ],
+    [
+      "College:",
+      "",
+      "Minimum Level:"
+    ],
+    [
+      "School:",
+      "",
+      "MP Cost:"
+    ],
+    [
+      "",
+      "",
+      "AP Cost:"
+    ],
+    [
+      "Element:",
+      "",
+      "Sustain Cost:"
+    ],
+    [
+      "Type:"
+    ],
+    [],
+    [
+      "Attack Type:",
+      "",
+      "Duration:"
+    ],
+    [
+      "Save:",
+      "",
+      "Range:"
+    ],
+    [
+      "",
+      "",
+      "Sustain Range:"
+    ],
+    [
+      "Casting Methods:",
+      "",
+      "Target"
+    ],
+    [
+      "Sacrificial — Fatigue:",
+      "",
+      "Area"
+    ],
+    [
+      "Sacrificial — Additional Cost:"
+    ],
+    [
+      "Scripted — Base Preparation Time:"
+    ],
+    [
+      "Ritual — Ritual Tier:"
+    ],
+    [],
+    [
+      "Description:",
+      "",
+      "Effect:"
+    ],
+    [],
+    [
+      "Cast Level",
+      "Upgrade"
+    ],
+    [
+      "Level 2:"
+    ],
+    [
+      "Level 3:"
+    ],
+    [
+      "Level 4:"
+    ],
+    [
+      "Level 5:"
+    ],
+    [
+      "Level 6:"
+    ],
+    [
+      "Level 7:"
+    ],
+    [
+      "Level 8:"
+    ],
+    [
+      "Level 9:"
+    ],
+    [
+      "Level 10:"
+    ],
+    [],
+    [
+      "Spell Name"
+    ],
+    [
+      "College:",
+      "",
+      "Minimum Level:"
+    ],
+    [
+      "School:",
+      "",
+      "MP Cost:"
+    ],
+    [
+      "",
+      "",
+      "AP Cost:"
+    ],
+    [
+      "Element:",
+      "",
+      "Sustain Cost:"
+    ],
+    [
+      "Type:"
+    ],
+    [],
+    [
+      "Attack Type:",
+      "",
+      "Duration:"
+    ],
+    [
+      "Save:",
+      "",
+      "Range:"
+    ],
+    [
+      "",
+      "",
+      "Sustain Range:"
+    ],
+    [
+      "Casting Methods:",
+      "",
+      "Target"
+    ],
+    [
+      "Sacrificial — Fatigue:",
+      "",
+      "Area"
+    ],
+    [
+      "Sacrificial — Additional Cost:"
+    ],
+    [
+      "Scripted — Base Preparation Time:"
+    ],
+    [
+      "Ritual — Ritual Tier:"
+    ],
+    [],
+    [
+      "Description:",
+      "",
+      "Effect:"
+    ],
+    [],
+    [
+      "Cast Level",
+      "Upgrade"
+    ],
+    [
+      "Level 2:"
+    ],
+    [
+      "Level 3:"
+    ],
+    [
+      "Level 4:"
+    ],
+    [
+      "Level 5:"
+    ],
+    [
+      "Level 6:"
+    ],
+    [
+      "Level 7:"
+    ],
+    [
+      "Level 8:"
+    ],
+    [
+      "Level 9:"
+    ],
+    [
+      "Level 10:"
+    ]
+  ]
+}

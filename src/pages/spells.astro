@@ -1,5 +1,6 @@
 ---
 // BASE_URL makes links work under both GitHub Pages and a future custom domain.
+import spells from '../data/inertia-spells.json';
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
 ---
 <!doctype html>
@@ -7,8 +8,8 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="A local design prototype for displaying Tear RPG spells from structured source data.">
-<title>Spells — Tear RPG Prototype (Casting Methods)</title>
+<meta name="description" content="Spell reference for the Tear tabletop RPG, generated from structured spreadsheet data.">
+<title>Spells — Tear RPG</title>
 <style is:global>
   :root { color-scheme: light; --bg:#f5f4f0; --paper:#fffefa; --ink:#222523; --muted:#5c645f; --line:#dadbd4; --subtle:#f0f1ec; --accent:#365549; }
   *{box-sizing:border-box}
@@ -73,34 +74,20 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
 <div class="layout">
   <aside aria-label="Spell navigation">
     <p class="section-label">College of Kinetics</p>
-    <label for="spell-search" class="section-label" style="display:block;margin-bottom:8px;letter-spacing:normal;text-transform:none;font-weight:500">Search these sample spells</label>
+    <label for="spell-search" class="section-label" style="display:block;margin-bottom:8px;letter-spacing:normal;text-transform:none;font-weight:500">Search Inertia spells</label>
     <input class="search" id="spell-search" placeholder="Search spells..." autocomplete="off">
     <nav class="sidebar-list" id="spell-list" aria-label="Available spells"></nav>
-    <p class="microcopy">Two real spells from the Inertia tab. Select a casting method to switch between its relevant fields. No live connection to Google Sheets.</p>
+    <p class="microcopy">Nine Inertia spells imported from a Google Sheets snapshot. Choose a casting method to view its costs. Updates require publishing a refreshed snapshot.</p>
   </aside>
   <main class="page"><div class="crumb" id="crumb">Spells / Kinetics / Inertia</div><article class="spell-page" id="spell"></article></main>
 </div>
-<div class="footer">Prototype only. Data transcribed from the RPG Project Spells source. No changes were made to the spreadsheet.</div>
+<div class="footer">Inertia spell reference · Generated from a read-only snapshot of RPG Project Spells.</div>
+<script is:inline type="application/json" id="spell-data" set:html={JSON.stringify(spells).replace(/</g, '\\u003c')}></script>
 <script is:inline>
 // In a production site, an import script would transform the spreadsheet's
 // vertically arranged spell blocks into objects with these named fields.
 // The page design below can then be reused for every spell.
-const spells = [
-  {
-    id:'inertial-projectile-shield',name:'Inertial Projectile Shield',college:'Kinetics',school:'Inertia',level:'1',element:'None',type:'Defense',
-    mp:'1',ap:'1',fatigue:'1',sustainCost:'None',attackType:'None',save:'None',duration:'24 hours',range:'10 m',sustainRange:'None',target:'One creature',area:'None',additionalCost:'None',scriptedPreparation:'5 minutes',ritualTier:'Elaborate (1 minute)',
-    effect:'Automatically stops ordinary physical projectiles moving at approximately 120 km/h or more relative to the target. Lasts 24 hours or until triggered; protects for approximately 0.25 seconds after activation, then dissipates. Does not stop heavy siege projectiles. Multiple castings do not stack.',
-    description:'An invisible inertial field protects one creature for up to 24 hours or until expended. It activates automatically against incoming concentrated physical projectiles traveling approximately 120 km/h or faster relative to the protected creature. The field arrests ordinary projectiles such as arrows, bolts, sling stones, and bullets, redirecting their kinetic energy into the surrounding ground or space. Heavy projectiles, such as cannonballs, exceed the basic shield\'s stopping capacity. Thrown objects and slow melee attacks usually fall below its activation threshold. Once struck by a projectile it can stop, the shield continues intercepting qualifying projectiles for approximately 0.25 seconds before collapsing. Recasting replaces the existing shield; only the strongest shield effect on a target applies. Shield layers granted by future higher-level upgrades are separate from stacking multiple castings.',
-    upgrades:[]
-  },
-  {
-    id:'slow-fall',name:'Slow Fall',college:'Kinetics',school:'Inertia',level:'1',element:'None',type:'Movement',
-    mp:'1',ap:'1',fatigue:'1',sustainCost:'None',attackType:'None',save:'None',duration:'30 minutes',range:'10 m',sustainRange:'None',target:'One creature',area:'None',additionalCost:'None',scriptedPreparation:'5 minutes',ritualTier:'Quick (4 seconds)',
-    effect:'Caps downward falling speed at 2 m/s for 30 minutes. Automatic; no steering, hovering, or speed adjustment. Recasting resets duration. Dismissal ends the spell; falling resumes normally if it ends midair.',
-    description:'An invisible inertial field limits the target creature\'s downward falling speed to 2 m/s (7.2 km/h) for 30 minutes, allowing safe, convenient descents and gentle landings. The effect operates automatically whenever the target falls, safely reducing the speed of a creature already falling faster than this limit. The target cannot adjust descent speed, hover, or steer using the spell. The target may dismiss Slow Fall at any time, but dismissal ends the spell permanently until recast. Recasting on the same target resets its duration to 30 minutes rather than stacking. If the spell expires or is dismissed in midair, the target resumes accelerating normally under gravity.',
-    upgrades:[]
-  }
-];
+const spells = JSON.parse(document.getElementById('spell-data').textContent);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const stat = (label,value)=>`<div class="stat"><span class="stat-number">${esc(value)}</span><span class="stat-label">${esc(label)}</span></div>`;
 const fact = (label,value)=>`<div><span class="fact-label">${esc(label)}</span><span class="fact-value">${esc(value)}</span></div>`;
@@ -139,7 +126,7 @@ function renderSpell(){
 function renderMethod(s){
   let fields, note;
   if(method==='scripted'){
-    fields=[['MP Cost',s.mp],['AP Cost',s.ap],['Base Preparation',s.scriptedPreparation]];
+    fields=[['MP Cost',s.mp],['AP Cost',s.ap],['Base Preparation',s.scriptedPrep]];
     note='Scripted values from the spell sheet.';
   }else if(method==='sacrifice'){
     fields=[['AP Cost',s.ap],['Fatigue',s.fatigue],['Additional Cost',s.additionalCost]];
