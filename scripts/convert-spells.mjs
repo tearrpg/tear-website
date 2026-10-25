@@ -1,7 +1,7 @@
 // Tear spellblock importer: accepts a JSON snapshot of a bounded Google Sheets range.
 // It NEVER writes to the original spreadsheet. Only validated input produces output.
-import { readFileSync, writeFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const LABELS = Object.freeze({
@@ -103,6 +103,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
       console.error('Import aborted: ' + errors.length + ' error(s). No output written.');
       process.exitCode = 1;
     } else {
+      mkdirSync(dirname(resolve(outputPath)), { recursive: true });
       writeFileSync(outputPath,JSON.stringify(spells,null,2)+'\n','utf8');
       console.log('Imported '+spells.length+' spells from '+snapshot.sheet+' to '+outputPath);
     }
