@@ -16,7 +16,7 @@ const LABELS = Object.freeze({
 });
 const REQUIRED = ['name','college','school','level','mp','ap','fatigue','scriptedPrep','ritualTier','effect','description'];
 const clean = value => String(value ?? '').replace(/[\u200b-\u200d\ufeff]/g,'').trim();
-const labelKey = value => clean(value).replace(/[—–]/g,'-').replace(/:\s*$/,'').replace(/\s+/g,' ').toLowerCase();
+const labelKey = value => clean(value).replace(/[—–]/g,'-').replace(/:\s*$/,'').replace(/\s+/g,' ').trim().toLowerCase();
 const slugify = value => clean(value).normalize('NFKD').toLowerCase()
   .replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 
