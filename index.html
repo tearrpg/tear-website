@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Tear — a fantasy tabletop role-playing game.">
+<title>Tear — Fantasy Tabletop RPG</title>
+<style>
+:root { color-scheme:light; --bg:#f5f4f0; --paper:#fffefa; --ink:#222523; --muted:#5c645f; --line:#dadbd4; --subtle:#f0f1ec; --accent:#365549; }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+a{color:inherit} a:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+header{background:var(--paper);border-bottom:1px solid var(--line)}
+.header-inner{max-width:1160px;margin:auto;padding:20px 28px;display:flex;gap:28px;align-items:center;justify-content:space-between}
+.logo{font:700 23px/1 Georgia,"Times New Roman",serif;text-decoration:none}
+.logo small{font:normal 11px/1.6 system-ui,sans-serif;display:block;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+nav{display:flex;gap:24px;flex-wrap:wrap}
+nav a{font-size:14px;text-decoration:none;color:var(--muted)}
+nav a:hover,.text-link:hover{text-decoration:underline;color:var(--ink)}
+main{max-width:1160px;margin:auto;padding:0 28px}
+.hero{min-height:495px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:76px 22px 88px}
+.kicker{font-size:12px;letter-spacing:.17em;text-transform:uppercase;color:var(--muted);font-weight:650}
+h1{font:normal clamp(72px,13vw,135px)/1.1 Georgia,"Times New Roman",serif;letter-spacing:-.055em;margin:12px 0 0}
+.hero p{color:var(--muted);font-size:19px;margin:12px 0 28px}
+.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 22px;border-radius:5px;text-decoration:none;font-weight:600;font-size:14px;border:1px solid var(--accent)}
+.btn.primary{background:var(--accent);color:white}
+.btn.secondary{color:var(--accent);background:transparent}
+.btn:hover{filter:brightness(.94)}
+section.content{padding:76px 0;border-top:1px solid var(--line);scroll-margin-top:24px}
+.eyebrow{margin:0 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.11em;color:var(--accent);font-weight:700}
+h2{font:normal 36px/1.2 Georgia,"Times New Roman",serif;letter-spacing:-.025em;margin:0 0 20px}
+.lede{font-size:18px;color:var(--muted);max-width:730px;margin:0}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:30px}
+.tile{padding:26px 24px;background:var(--paper);border:1px solid var(--line);border-radius:7px}
+.tile h3{font:600 21px/1.3 Georgia,"Times New Roman",serif;margin:0 0 10px}
+.tile p{font-size:14px;color:var(--muted);margin:0 0 16px}
+.text-link{font-weight:650;font-size:14px;color:var(--accent);text-underline-offset:4px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.quiet{font-size:13px;color:var(--muted)}
+footer{border-top:1px solid var(--line);background:var(--paper)}
+.footer-inner{max-width:1160px;margin:auto;padding:26px 28px;display:flex;justify-content:space-between;gap:20px;font-size:13px;color:var(--muted)}
+@media(max-width:850px){.header-inner{flex-direction:column;align-items:flex-start;gap:16px}.grid{grid-template-columns:1fr}.split{grid-template-columns:1fr;gap:25px}.hero{min-height:390px}}
+@media(max-width:540px){main{padding:0 18px}.header-inner{padding:18px}nav{gap:11px 17px}.hero{padding:55px 10px 65px}.hero p{font-size:16px}section.content{padding:52px 0}.footer-inner{padding:20px 18px;flex-direction:column}h2{font-size:30px}}
+</style>
+</head>
+<body>
+<header>
+<div class="header-inner">
+  <a class="logo" href="index.html">Tear<small>Tabletop Role-playing Game</small></a>
+  <nav aria-label="Main navigation">
+    <a href="#about">Overview</a>
+    <a href="#rules">Core Rules</a>
+    <a href="spells.html">Spells &amp; Abilities</a>
+    <a href="#world">The World</a>
+    <a href="#resources">Resources</a>
+  </nav>
+</div>
+</header>
+<main>
+  <div class="hero">
+    <div class="kicker">Fantasy tabletop role-playing game</div>
+    <h1>TEAR</h1>
+    <p>A fantasy tabletop role-playing game.</p>
+    <div class="actions">
+      <a class="btn primary" href="#rules">Start Playing</a>
+      <a class="btn secondary" href="#world">Explore the World</a>
+    </div>
+  </div>
+  <section id="about" class="content">
+    <p class="eyebrow">Introduction</p>
+    <h2>What is Tear?</h2>
+    <p class="lede">Tear is a classless fantasy role-playing game with flexible character development, tactical combat, and a world whose civilizations have been shaped by magic, divine rivalry, and history.</p>
+    <div class="grid">
+      <div class="tile"><h3>Create a character</h3><p>Build through abilities and individual choices rather than selecting a fixed character class.</p><a class="text-link" href="#rules">Explore the rules</a></div>
+      <div class="tile"><h3>Learn the magic</h3><p>Discover spells organized into Colleges and Schools, with different casting methods and costs.</p><a class="text-link" href="spells.html">View the spell reference</a></div>
+      <div class="tile"><h3>Explore a world</h3><p>Encounter the peoples, geography, institutions, and history of Aigonz's Tear.</p><a class="text-link" href="#world">Explore the setting</a></div>
+    </div>
+  </section>
+  <section id="rules" class="content">
+    <p class="eyebrow">Game system</p>
+    <h2>Start playing</h2>
+    <div class="split">
+      <div><p>The core rules and character creation reference will appear here as approved material becomes ready for publication.</p><p class="quiet">This is a design draft. Complete player rules and downloadable resources have not been published.</p></div>
+      <div class="tile"><h3>Available prototype</h3><p>Examine two real Inertia spells, their casting-method controls, costs, and descriptions.</p><a class="text-link" href="spells.html">Open the spell reference</a></div>
+    </div>
+  </section>
+  <section id="world" class="content">
+    <p class="eyebrow">The setting</p>
+    <h2>Aigonz's Tear</h2>
+    <p class="lede">The world takes its name from Aigonz, whose grief over his children led to its creation. Tear became the arena of a contest among four gods. The civilizations that followed eventually transformed that world beyond its creators' original contest.</p>
+    <p class="quiet">A fuller, player-facing setting guide will be added separately from private development lore.</p>
+  </section>
+  <section id="resources" class="content">
+    <p class="eyebrow">Reference</p>
+    <h2>Resources</h2>
+    <p class="lede">Future material may include character sheets, rules references, spell and equipment catalogues, and setting documents.</p>
+    <p class="quiet">This section is reserved; no downloads have been published yet.</p>
+  </section>
+</main>
+<footer><div class="footer-inner"><span>TEAR · Local website design draft</span><span>Not published · Source content remains in existing project documents</span></div></footer>
+</body>
+</html>
