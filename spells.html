@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A local design prototype for displaying Tear RPG spells from structured source data.">
+<title>Spells — Tear RPG Prototype (Casting Methods)</title>
+<style>
+  :root { color-scheme: light; --bg:#f5f4f0; --paper:#fffefa; --ink:#222523; --muted:#5c645f; --line:#dadbd4; --subtle:#f0f1ec; --accent:#365549; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.58 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+  button,input{font:inherit}
+  .site-head{border-bottom:1px solid var(--line);background:var(--paper)}
+  .site-head-inner{max-width:1180px;margin:auto;padding:16px 28px;display:flex;gap:28px;align-items:center;justify-content:space-between}
+  .brand{font:700 24px/1 Georgia,"Times New Roman",serif;letter-spacing:.025em}
+  .brand small{font:normal 12px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);display:block;margin-top:6px}
+  .site-head-note{font-size:13px;color:var(--muted)}
+  .layout{max-width:1180px;margin:38px auto 70px;padding:0 28px;display:grid;grid-template-columns:248px minmax(0,1fr);gap:30px;align-items:start}
+  aside{position:sticky;top:24px}
+  .section-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:0 0 10px}
+  .search{background:var(--paper);border:1px solid var(--line);border-radius:6px;width:100%;padding:11px 12px;color:var(--ink);outline-offset:2px}
+  .sidebar-list{margin:15px 0 0;display:grid;gap:5px}
+  .spell-nav{border:1px solid transparent;background:transparent;border-radius:6px;text-align:left;padding:11px 12px;cursor:pointer;display:block;width:100%;color:var(--ink);line-height:1.35}
+  .spell-nav:hover{background:var(--subtle)}
+  .spell-nav[aria-current="true"]{border-color:var(--line);background:var(--paper);font-weight:650}
+  .nav-detail{display:block;color:var(--muted);font-size:12px;font-weight:400;margin-top:4px}
+  .empty{font-size:13px;color:var(--muted)}
+  .page{min-width:0}
+  .crumb{font-size:13px;color:var(--muted);margin:0 0 14px}
+  .spell-page{border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:36px 42px}
+  .eyebrow{font-size:12px;color:var(--accent);font-weight:750;letter-spacing:.10em;text-transform:uppercase;margin:0 0 7px}
+  h1{font:normal 38px/1.15 Georgia,"Times New Roman",serif;letter-spacing:-.02em;margin:0 0 7px}
+  .subhead{color:var(--muted);font-size:14px;margin:0}
+  .section{margin-top:30px;padding-top:26px;border-top:1px solid var(--line)}
+  .section h2{font:600 20px/1.25 Georgia,"Times New Roman",serif;margin:0 0 14px}
+  .artwork-slot{width:min(100%,236px);aspect-ratio:1;display:block;margin-top:24px;background:linear-gradient(145deg,#fdfdf9,#f7f7f2);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .artwork-slot img{width:100%;height:100%;object-fit:cover;display:block}
+  .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .method-heading{font-size:12px;font-weight:750;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:0 0 9px}
+  .method-section{margin-top:29px}
+  .method-switch{display:flex;flex-wrap:wrap;gap:7px}
+  .method-button{cursor:pointer;background:transparent;border:1px solid var(--line);border-radius:5px;padding:9px 17px;color:var(--ink);font-size:14px;font-weight:600;transition:background .12s,border-color .12s}
+  .method-button:hover{background:var(--subtle)}
+  .method-button[aria-pressed="true"]{background:var(--accent);color:white;border-color:var(--accent)}
+  .method-button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  .stat-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:13px}
+  .method-note{margin:10px 0 0;color:var(--muted);font-size:12px;min-height:18px}
+  .stat{background:var(--subtle);border-radius:5px;padding:14px 15px}
+  .stat-number{display:block;font:600 27px/1.2 Georgia,"Times New Roman",serif;font-variant-numeric:tabular-nums;margin-bottom:5px}
+  .stat-label{display:block;font-size:12px;color:var(--muted)}
+  .fact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 20px;margin-top:24px}
+  .fact-label{display:block;font-size:12px;color:var(--muted);margin-bottom:2px}
+  .fact-value{font-size:15px;font-weight:550}
+  .effect{border-left:3px solid var(--accent);padding:2px 0 2px 17px;margin:0;line-height:1.7}
+  .description{margin:0;line-height:1.75}
+  .casting{display:grid;grid-template-columns:155px 1fr;gap:0}
+  .casting dt,.casting dd{padding:11px 0;margin:0;border-bottom:1px solid var(--line);font-size:14px}
+  .casting dt{font-weight:650}
+  .casting dd{color:#39413c}
+  .casting dt:last-of-type,.casting dd:last-of-type{border-bottom:0}
+  .microcopy{color:var(--muted);font-size:12px;margin:16px 0 0}
+  .footer{max-width:1180px;margin:-34px auto 40px;padding:0 28px;color:var(--muted);font-size:12px}
+  @media(max-width:760px){.layout{display:block;margin-top:20px;padding:0 14px}.site-head-inner{padding:13px 18px}.site-head-note{display:none}aside{position:static;margin-bottom:24px}.sidebar-list{display:flex;gap:7px;overflow:auto;padding-bottom:4px}.spell-nav{min-width:155px}.spell-page{padding:24px 20px}h1{font-size:31px}.footer{margin:18px auto 24px;padding:0 16px}}
+  @media(max-width:440px){.artwork-slot{width:200px}.method-button{padding:8px 12px;font-size:13px}.method-section .stat-number{font-size:20px} .stat-grid{gap:7px}.stat{padding:10px}.stat-number{font-size:23px}.stat-label{font-size:11px}.fact-grid{gap:14px}.casting{grid-template-columns:1fr}.casting dt{border-bottom:0;padding-bottom:0}.casting dd{padding-top:2px}}
+</style>
+</head>
+<body>
+<header class="site-head"><div class="site-head-inner"><a class="brand" href="index.html" style="color:inherit;text-decoration:none">Tear <small>Tabletop Role-playing Game</small></a><div class="site-head-note"><a href="index.html" style="color:inherit">Home</a> &nbsp;/&nbsp; Spell Reference · Layout Prototype</div></div></header>
+<div class="layout">
+  <aside aria-label="Spell navigation">
+    <p class="section-label">College of Kinetics</p>
+    <label for="spell-search" class="section-label" style="display:block;margin-bottom:8px;letter-spacing:normal;text-transform:none;font-weight:500">Search these sample spells</label>
+    <input class="search" id="spell-search" placeholder="Search spells..." autocomplete="off">
+    <nav class="sidebar-list" id="spell-list" aria-label="Available spells"></nav>
+    <p class="microcopy">Two real spells from the Inertia tab. Select a casting method to switch between its relevant fields. No live connection to Google Sheets.</p>
+  </aside>
+  <main class="page"><div class="crumb" id="crumb">Spells / Kinetics / Inertia</div><article class="spell-page" id="spell"></article></main>
+</div>
+<div class="footer">Prototype only. Data transcribed from the RPG Project Spells source. No changes were made to the spreadsheet.</div>
+<script>
+// In a production site, an import script would transform the spreadsheet's
+// vertically arranged spell blocks into objects with these named fields.
+// The page design below can then be reused for every spell.
+const spells = [
+  {
+    id:'inertial-projectile-shield',name:'Inertial Projectile Shield',college:'Kinetics',school:'Inertia',level:'1',element:'None',type:'Defense',
+    mp:'1',ap:'1',fatigue:'1',sustainCost:'None',attackType:'None',save:'None',duration:'24 hours',range:'10 m',sustainRange:'None',target:'One creature',area:'None',additionalCost:'None',scriptedPreparation:'5 minutes',ritualTier:'Elaborate (1 minute)',
+    effect:'Automatically stops ordinary physical projectiles moving at approximately 120 km/h or more relative to the target. Lasts 24 hours or until triggered; protects for approximately 0.25 seconds after activation, then dissipates. Does not stop heavy siege projectiles. Multiple castings do not stack.',
+    description:'An invisible inertial field protects one creature for up to 24 hours or until expended. It activates automatically against incoming concentrated physical projectiles traveling approximately 120 km/h or faster relative to the protected creature. The field arrests ordinary projectiles such as arrows, bolts, sling stones, and bullets, redirecting their kinetic energy into the surrounding ground or space. Heavy projectiles, such as cannonballs, exceed the basic shield\'s stopping capacity. Thrown objects and slow melee attacks usually fall below its activation threshold. Once struck by a projectile it can stop, the shield continues intercepting qualifying projectiles for approximately 0.25 seconds before collapsing. Recasting replaces the existing shield; only the strongest shield effect on a target applies. Shield layers granted by future higher-level upgrades are separate from stacking multiple castings.',
+    upgrades:[]
+  },
+  {
+    id:'slow-fall',name:'Slow Fall',college:'Kinetics',school:'Inertia',level:'1',element:'None',type:'Movement',
+    mp:'1',ap:'1',fatigue:'1',sustainCost:'None',attackType:'None',save:'None',duration:'30 minutes',range:'10 m',sustainRange:'None',target:'One creature',area:'None',additionalCost:'None',scriptedPreparation:'5 minutes',ritualTier:'Quick (4 seconds)',
+    effect:'Caps downward falling speed at 2 m/s for 30 minutes. Automatic; no steering, hovering, or speed adjustment. Recasting resets duration. Dismissal ends the spell; falling resumes normally if it ends midair.',
+    description:'An invisible inertial field limits the target creature\'s downward falling speed to 2 m/s (7.2 km/h) for 30 minutes, allowing safe, convenient descents and gentle landings. The effect operates automatically whenever the target falls, safely reducing the speed of a creature already falling faster than this limit. The target cannot adjust descent speed, hover, or steer using the spell. The target may dismiss Slow Fall at any time, but dismissal ends the spell permanently until recast. Recasting on the same target resets its duration to 30 minutes rather than stacking. If the spell expires or is dismissed in midair, the target resumes accelerating normally under gravity.',
+    upgrades:[]
+  }
+];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const stat = (label,value)=>`<div class="stat"><span class="stat-number">${esc(value)}</span><span class="stat-label">${esc(label)}</span></div>`;
+const fact = (label,value)=>`<div><span class="fact-label">${esc(label)}</span><span class="fact-value">${esc(value)}</span></div>`;
+let selected = spells[0].id;
+let method = 'sacrifice'; // Keep the character's selected casting method when switching spells.
+function renderList(filter='') {
+  const filtered=spells.filter(s=>(s.name+' '+s.school+' '+s.type).toLowerCase().includes(filter.toLowerCase()));
+  const node=document.getElementById('spell-list'); node.replaceChildren();
+  if(!filtered.length){const p=document.createElement('p');p.className='empty';p.textContent='No matching spells';node.append(p);return;}
+  for(const s of filtered){const b=document.createElement('button');b.type='button';b.className='spell-nav';b.setAttribute('aria-current',String(s.id===selected));b.textContent=s.name;const detail=document.createElement('span');detail.className='nav-detail';detail.textContent=`Level ${s.level} · ${s.type}`;b.append(detail);b.addEventListener('click',()=>{selected=s.id;renderSpell();renderList(document.getElementById('spell-search').value);});node.append(b);}
+}
+function renderSpell(){
+  const s=spells.find(x=>x.id===selected);
+  document.getElementById('crumb').textContent=`Spells / ${s.college} / ${s.school}`;
+  document.getElementById('spell').innerHTML=`
+    <header><p class="eyebrow">${esc(s.college)} / ${esc(s.school)}</p><h1>${esc(s.name)}</h1><p class="subhead">Level ${esc(s.level)} · ${esc(s.type)} · Element: ${esc(s.element)}</p></header>
+    <div class="artwork-slot" role="img" aria-label="Space reserved for a future illustration of ${esc(s.name)}">${s.artwork ? `<img src="${esc(s.artwork)}" alt="Illustration of ${esc(s.name)}">` : ''}</div>
+    <div class="method-section">
+      <p class="method-heading">Casting method</p>
+      <div class="method-switch" aria-label="Casting method">
+        ${[['ritual','Ritual'],['scripted','Scripted'],['sacrifice','Sacrifice']].map(([key,label])=>`<button type="button" class="method-button" data-method="${key}" aria-pressed="${String(method===key)}">${label}</button>`).join('')}
+      </div>
+      <div id="method-costs" class="stat-grid" aria-live="polite"></div>
+      <p class="method-note" id="method-note"></p>
+    </div>
+    <div class="fact-grid">${fact('Range',s.range)}${fact('Duration',s.duration)}${fact('Target',s.target)}${fact('Save',s.save)}${fact('Attack type',s.attackType)}${fact('Sustain cost',s.sustainCost)}${fact('Area',s.area)}${fact('Sustain range',s.sustainRange)}</div>
+    <section class="section"><h2>Effect</h2><p class="effect">${esc(s.effect)}</p></section>
+    <section class="section"><h2>Description</h2><p class="description">${esc(s.description)}</p></section>
+    ${s.upgrades.length?`<section class="section"><h2>Upgrades</h2>${s.upgrades.map(u=>`<p>Level ${esc(u.level)}: ${esc(u.text)}</p>`).join('')}</section>`:''}`;
+  document.querySelectorAll('.method-button').forEach(b=>b.addEventListener('click',()=>{
+    method=b.dataset.method;
+    renderMethod(s);
+  }));
+  renderMethod(s);
+}
+function renderMethod(s){
+  let fields, note;
+  if(method==='scripted'){
+    fields=[['MP Cost',s.mp],['AP Cost',s.ap],['Base Preparation',s.scriptedPreparation]];
+    note='Scripted values from the spell sheet.';
+  }else if(method==='sacrifice'){
+    fields=[['AP Cost',s.ap],['Fatigue',s.fatigue],['Additional Cost',s.additionalCost]];
+    note='Sacrificial values from the spell sheet.';
+  }else{
+    // Ritual tiers contain their own duration; this is a display-only split.
+    const m=/^(.*?)\s*\(([^)]*)\)\s*$/.exec(s.ritualTier);
+    fields=[['Ritual Tier',m?m[1]:s.ritualTier],['Ritual Time',m?m[2]:'—']];
+    note='Ritual tier and time from the spell sheet.';
+  }
+  const grid=document.getElementById('method-costs');
+  grid.style.gridTemplateColumns=`repeat(${fields.length},minmax(0,1fr))`;
+  grid.innerHTML=fields.map(([label,value])=>stat(label,value)).join('');
+  document.getElementById('method-note').textContent=note;
+  document.querySelectorAll('.method-button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.method===method)));
+}
+document.getElementById('spell-search').addEventListener('input',e=>renderList(e.target.value));renderSpell();renderList();
+</script>
+</body>
+</html>
