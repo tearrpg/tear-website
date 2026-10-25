@@ -7,3 +7,6 @@ dist/
 
 # Generated spell records: source is the committed snapshot
 src/data/inertia-spells.json
+
+# Generated multi-School spell data
+src/data/spellbook.json

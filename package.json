@@ -9,8 +9,9 @@
     "preview": "astro preview",
     "test:import": "node --test scripts/tests/*.test.mjs",
     "import:spells": "node scripts/convert-spells.mjs",
-    "prebuild": "node scripts/convert-spells.mjs scripts/snapshots/inertia.values.json src/data/inertia-spells.json",
-    "predev": "node scripts/convert-spells.mjs scripts/snapshots/inertia.values.json src/data/inertia-spells.json"
+    "prebuild": "node scripts/build-spellbook.mjs",
+    "predev": "node scripts/build-spellbook.mjs",
+    "build:spells": "node scripts/build-spellbook.mjs"
   },
   "dependencies": {
     "astro": "7.4.2"

@@ -1,6 +1,6 @@
 ---
 // BASE_URL makes links work under both GitHub Pages and a future custom domain.
-import spells from '../data/inertia-spells.json';
+import spells from '../data/spellbook.json';
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
 ---
 <!doctype html>
@@ -9,7 +9,7 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Spell reference for the Tear tabletop RPG, generated from structured spreadsheet data.">
-<title>Spells — Tear RPG</title>
+<title>Spell Library — Tear RPG</title>
 <style is:global>
   :root { color-scheme: light; --bg:#f5f4f0; --paper:#fffefa; --ink:#222523; --muted:#5c645f; --line:#dadbd4; --subtle:#f0f1ec; --accent:#365549; }
   *{box-sizing:border-box}
@@ -70,18 +70,20 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
 </style>
 </head>
 <body>
-<header class="site-head"><div class="site-head-inner"><a class="brand" href={base} style="color:inherit;text-decoration:none">Tear <small>Tabletop Role-playing Game</small></a><div class="site-head-note"><a href={base} style="color:inherit">Home</a> &nbsp;/&nbsp; Spell Reference · Layout Prototype</div></div></header>
+<header class="site-head"><div class="site-head-inner"><a class="brand" href={base} style="color:inherit;text-decoration:none">Tear <small>Tabletop Role-playing Game</small></a><div class="site-head-note"><a href={base} style="color:inherit">Home</a> &nbsp;/&nbsp; Spell Reference</div></div></header>
 <div class="layout">
   <aside aria-label="Spell navigation">
-    <p class="section-label">College of Kinetics</p>
-    <label for="spell-search" class="section-label" style="display:block;margin-bottom:8px;letter-spacing:normal;text-transform:none;font-weight:500">Search Inertia spells</label>
+    <p class="section-label">Spell Library</p>
+    <label for="spell-search" class="section-label" style="display:block;margin-bottom:8px;letter-spacing:normal;text-transform:none;font-weight:500">Search all spells</label>
     <input class="search" id="spell-search" placeholder="Search spells..." autocomplete="off">
+    <label for="school-filter" class="section-label" style="display:block;margin:12px 0 8px;letter-spacing:normal;text-transform:none;font-weight:500">School</label>
+    <select class="search" id="school-filter" aria-label="Filter by School"><option value="">All Schools</option></select>
     <nav class="sidebar-list" id="spell-list" aria-label="Available spells"></nav>
-    <p class="microcopy">Nine Inertia spells imported from a Google Sheets snapshot. Choose a casting method to view its costs. Updates require publishing a refreshed snapshot.</p>
+    <p class="microcopy">Spells imported from the current School snapshots. Incomplete work-in-progress entries are displayed with unspecified fields left blank.</p>
   </aside>
-  <main class="page"><div class="crumb" id="crumb">Spells / Kinetics / Inertia</div><article class="spell-page" id="spell"></article></main>
+  <main class="page"><div class="crumb" id="crumb">Spells</div><article class="spell-page" id="spell"></article></main>
 </div>
-<div class="footer">Inertia spell reference · Generated from a read-only snapshot of RPG Project Spells.</div>
+<div class="footer">Spell library · Generated from a read-only snapshot of RPG Project Spells.</div>
 <script is:inline type="application/json" id="spell-data" set:html={JSON.stringify(spells).replace(/</g, '\\u003c')}></script>
 <script is:inline>
 // In a production site, an import script would transform the spreadsheet's
@@ -93,18 +95,35 @@ const stat = (label,value)=>`<div class="stat"><span class="stat-number">${esc(v
 const fact = (label,value)=>`<div><span class="fact-label">${esc(label)}</span><span class="fact-value">${esc(value)}</span></div>`;
 let selected = spells[0].id;
 let method = 'sacrifice'; // Keep the character's selected casting method when switching spells.
-function renderList(filter='') {
-  const filtered=spells.filter(s=>(s.name+' '+s.school+' '+s.type).toLowerCase().includes(filter.toLowerCase()));
-  const node=document.getElementById('spell-list'); node.replaceChildren();
+function renderList() {
+  const filter=document.getElementById('spell-search').value.trim().toLowerCase();
+  const school=document.getElementById('school-filter').value;
+  const filtered=spells.filter(s=>(!school||s.school===school)
+    &&(s.name+' '+s.school+' '+s.college+' '+s.type).toLowerCase().includes(filter));
+  const node=document.getElementById('spell-list');node.replaceChildren();
   if(!filtered.length){const p=document.createElement('p');p.className='empty';p.textContent='No matching spells';node.append(p);return;}
-  for(const s of filtered){const b=document.createElement('button');b.type='button';b.className='spell-nav';b.setAttribute('aria-current',String(s.id===selected));b.textContent=s.name;const detail=document.createElement('span');detail.className='nav-detail';detail.textContent=`Level ${s.level} · ${s.type}`;b.append(detail);b.addEventListener('click',()=>{selected=s.id;renderSpell();renderList(document.getElementById('spell-search').value);});node.append(b);}
+  let previous='';
+  for(const s of filtered){
+    if(s.school!==previous){
+      const h=document.createElement('p');h.className='section-label';h.style.marginTop='14px';
+      h.textContent=s.school;node.append(h);previous=s.school;
+    }
+    const b=document.createElement('button');b.type='button';b.className='spell-nav';
+    b.setAttribute('aria-current',String(s.id===selected));b.textContent=s.name;
+    const detail=document.createElement('span');detail.className='nav-detail';
+    detail.textContent='Level '+(s.level||'—')+' · '+(s.type||'Unspecified');
+    b.append(detail);b.addEventListener('click',()=>{
+      selected=s.id;renderSpell();renderList();
+    });node.append(b);
+  }
 }
 function renderSpell(){
   const s=spells.find(x=>x.id===selected);
   document.getElementById('crumb').textContent=`Spells / ${s.college} / ${s.school}`;
   document.getElementById('spell').innerHTML=`
-    <header><p class="eyebrow">${esc(s.college)} / ${esc(s.school)}</p><h1>${esc(s.name)}</h1><p class="subhead">Level ${esc(s.level)} · ${esc(s.type)} · Element: ${esc(s.element)}</p></header>
+    <header><p class="eyebrow">${esc(s.college)} / ${esc(s.school)}</p><h1>${esc(s.name)}</h1><p class="subhead">Level ${esc(s.level||'—')} · ${esc(s.type||'Unspecified')} · Element: ${esc(s.element||'Unspecified')}</p></header>
     <div class="artwork-slot" role="img" aria-label="Space reserved for a future illustration of ${esc(s.name)}">${s.artwork ? `<img src="${esc(s.artwork)}" alt="Illustration of ${esc(s.name)}">` : ''}</div>
+    ${s.incompleteFields?.length ? `<p class="microcopy">Work in progress: some spell statistics are not yet specified in the source.</p>` : ""}
     <div class="method-section">
       <p class="method-heading">Casting method</p>
       <div class="method-switch" aria-label="Casting method">
@@ -143,7 +162,12 @@ function renderMethod(s){
   document.getElementById('method-note').textContent=note;
   document.querySelectorAll('.method-button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.method===method)));
 }
-document.getElementById('spell-search').addEventListener('input',e=>renderList(e.target.value));renderSpell();renderList();
+const schoolOptions=[...new Set(spells.map(s=>s.school))].sort((a,b)=>a.localeCompare(b));
+const filterNode=document.getElementById('school-filter');
+for(const name of schoolOptions){const option=document.createElement('option');option.value=name;option.textContent=name;filterNode.add(option);}
+document.getElementById('spell-search').addEventListener('input',renderList);
+filterNode.addEventListener('change',renderList);
+renderSpell();renderList();
 </script>
 </body>
 </html>
