@@ -23,6 +23,7 @@ jobs:
         with:
           node-version: '24'
       - run: npm install --no-audit --no-fund
+      - run: npm run test:import
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:

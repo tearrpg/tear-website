@@ -1,47 +1,22 @@
-# Spell converter — first milestone
+# Inertia spell import
 
-This is the first **read-only** importer for Tear's source spellblocks. It parses vertically arranged spreadsheet entries into structured records usable by the Astro spell template.
+The public spell browser is generated from a read-only Inertia spreadsheet snapshot. The source range was Inertia!A34:D352, with nine named spells and empty template slots.
 
-## Current state
+## Pipeline
 
-- The full Inertia tab was inspected via the connected Google Sheets source. It has **nine populated spellblocks**, followed by empty template blocks.
-- The importer is implemented and tested using **synthetic fixtures only**. Neither the full Inertia content nor an exported snapshot has been committed to this public repository.
-- The published spell page still shows the original two public sample spells. **No automatic Google Sheets syncing or publication is enabled.**
+1. ChatGPT reads the live Google Sheets range without making edits, then updates scripts/snapshots/inertia.values.json.
+2. Every npm run build automatically runs scripts/convert-spells.mjs (via prebuild) to generate src/data/inertia-spells.json.
+3. The Astro page imports the generated records and renders all nine spells using one template.
+4. GitHub Pages serves the new generated site.
 
-## Input format
+## Refreshing the source
 
-Obtain a bounded, read-only Google Sheets values range (e.g., \`Inertia!A34:D352\`) and save its result in JSON:
+Fetch the current Inertia range again, replace the values in the saved JSON snapshot (and extend the bounded range as needed), and commit through a pull request. Validation and the Astro build run before publishing. No manual spellblock HTML editing is necessary.
 
-\`\`\`json
-{
-  "sheet": "Inertia",
-  "startRow": 34,
-  "values": [
-    ["Spell Name", "Example Test Spell"],
-    ["College:", "Kinetics", "Minimum Level:", "1"]
-  ]
-}
-\`\`\`
+IMPORTANT: This import is automatic from a saved spreadsheet snapshot at build time. GitHub is not yet automatically querying Google Sheets for current values. Fully automatic sheet-to-repository synchronization requires a separate authorized integration.
 
-The \`values\` array must preserve row positions; if you read a range beginning at A34, \`startRow\` must be 34. Blank or missing trailing cells are handled.
+The Google source sheet is never edited by this pipeline. The source snapshot is public with the project owner's permission. The converter reports exact cell addresses and blocks publishing if required data is missing. A test suite verifies all nine Inertia entries.
 
-## Running
+Commands: npm install; npm run test:import; npm run dev; npm run build.
 
-\`\`\`bash
-npm install
-npm run test:import
-npm run import:spells -- path/to/inertia-snapshot.json path/to/inertia-spells.json
-\`\`\`
-
-The converter looks for \`Spell Name\` rows in column A and uses row labels rather than fixed offsets. It handles minor differences in capitalization, spaces, colons, and dash styles, and reports legacy label aliases. Blank spell-name templates are ignored. Empty numerical fields are not silently invented; required-field errors stop the output.
-
-Diagnostics contain the exact spreadsheet tab and cell. No part of this program edits Google Sheets.
-
-## Next milestones
-
-1. **Approve content for public release:** review the nine Inertia spells and choose which may be published on the public Tear website. A GitHub branch is not private when the repository is public.
-2. Save an authorized read-only snapshot or selected spell data and run the importer.
-3. Connect the resulting validated JSON data to the existing Astro spell template (replace hardcoded two-spell array).
-4. Only after that, design a controlled refresh workflow. That might be deliberate manual publishing before any automatic syncing.
-
-No credentials, private Google Sheets tokens, or unpublished worldbuilding source documents should be committed to this public repository.
+Unimplemented: continuous live source synchronization, other Schools, per-spell routes, and unique artwork frames.
