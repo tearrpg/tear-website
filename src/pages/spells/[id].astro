@@ -1,0 +1,16 @@
+---
+import SpellExplorer from '../../components/SpellExplorer.astro';
+import spells from '../../data/spellbook.json';
+export function getStaticPaths(){
+  return spells.map(s=>({params:{id:s.id},props:{spell:s}}));
+}
+const {spell}=Astro.props;
+---
+<!doctype html>
+<html lang="en"><head>
+ <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+ <meta name="description" content={'Spell reference for '+spell.name+' in Tear.'}/>
+ <title>{spell.name+' — Tear Spell Reference'}</title>
+</head><body>
+<SpellExplorer initialId={spell.id}/>
+</body></html>

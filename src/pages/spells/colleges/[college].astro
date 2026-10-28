@@ -1,0 +1,28 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import spells from '../../../data/spellbook.json';
+import {slug,byLevel} from '../../../scripts/spell-model.mjs';
+export function getStaticPaths(){
+  return [...new Set(spells.map(s=>s.college).filter(Boolean))].map(college=>({
+    params:{college:slug(college)},props:{college}
+  }));
+}
+const {college}=Astro.props;
+const base=import.meta.env.BASE_URL.endsWith('/')?import.meta.env.BASE_URL:import.meta.env.BASE_URL+'/';
+const members=spells.filter(s=>s.college===college);
+const schools=[...new Set(members.map(s=>s.school))].sort();
+---
+<SiteLayout title={'College of '+college} section="rules">
+ <div class="tw-page">
+  <nav class="tw-breadcrumbs" aria-label="Breadcrumb"><a href={base}>Home</a><span class="tw-sep">/</span><a href={base+'spells/colleges/'}>Colleges</a><span class="tw-sep">/</span><span>{college}</span></nav>
+  <p class="tw-eyebrow">Spell Compendium</p><h1 class="tw-page-title">College of {college}</h1>
+  <p class="tw-lede">A list of published Schools and spells from the College of {college}. More about this College's place in Tear will be added when its article is prepared.</p>
+  <div class="tw-card-grid tw-two" style="margin-top:30px">
+   {schools.map(school=><a class="tw-card tw-card-link" href={base+'spells/schools/'+slug(college)+'/'+slug(school)+'/'}><h3>{school}</h3><p>{members.filter(s=>s.school===school).length} spell entries</p><span class="tw-card-label">Browse School →</span></a>)}
+  </div>
+  <section class="tw-panel"><h3>Spells in this College</h3>
+   <ul class="tw-list">{byLevel(members).map(s=><li><a href={base+'spells/'+s.id+'/'}>{s.name}</a> <span class="tw-mini">· Minimum level {s.level||'unspecified'} · {s.school}</span></li>)}</ul>
+  </section>
+  <nav class="tw-guide-nav"><a class="tw-btn tw-btn-outline" href={base+'spells/colleges/'}>← All Colleges</a><a class="tw-btn tw-btn-outline" href={base+'spells/'}>Search Spell Reference →</a></nav>
+ </div>
+</SiteLayout>
