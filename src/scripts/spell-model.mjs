@@ -2,6 +2,7 @@
 export const slug=value=>String(value??'').toLowerCase().normalize('NFKD')
   .replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 export const levelNumber=spell=>{
+  if(String(spell.level??'').trim()==='')return Number.POSITIVE_INFINITY;
   const n=Number(spell.level);
   return Number.isFinite(n)&&n>=0?n:Number.POSITIVE_INFINITY;
 };

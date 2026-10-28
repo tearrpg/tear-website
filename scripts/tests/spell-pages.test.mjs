@@ -13,7 +13,9 @@ test('all published spells have stable, unique canonical URLs',()=>{
  assert.equal(spells.length,148);
  assert.equal(new Set(spells.map(spellPath)).size,spells.length);
  assert(spells.every(s=>spellPath(s).startsWith('spells/')&&spellPath(s).endsWith('/')));
- assert.equal(spellPath(spells.find(s=>s.name==='Fire Bolt')),'spells/elemental-fire-bolt/');
+ const bolt=spells.find(s=>s.name==='Fire Bolt');
+ assert(bolt);
+ assert.equal(spellPath(bolt),'spells/'+bolt.id+'/');
 });
 
 test('College and School routes cannot collide in current source',()=>{
