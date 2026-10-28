@@ -1,0 +1,17 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import {species} from '../../../data/site-map.mjs';
+export function getStaticPaths(){return species.map(entry=>({params:{slug:entry.slug},props:{entry}}));}
+const {entry}=Astro.props;
+const base=import.meta.env.BASE_URL.endsWith('/')?import.meta.env.BASE_URL:import.meta.env.BASE_URL+'/';
+---
+<SiteLayout title={entry.name+' — Character Species'} section="create">
+ <div class="tw-page tw-article">
+  <nav class="tw-breadcrumbs" aria-label="Breadcrumb"><a href={base}>Home</a><span class="tw-sep">/</span><a href={base+'create/species/'}>Species Selection</a><span class="tw-sep">/</span><span>{entry.name}</span></nav>
+  <p class="tw-eyebrow">Playable species</p><h1 class="tw-page-title">{entry.name}</h1>
+  <div class="tw-image-frame tw-small tw-portrait" role="img" aria-label={'Reserved artwork for '+entry.name}>{entry.name} portrait</div>
+  <section class="tw-panel"><h3>Playing a {entry.name}</h3><p class="tw-placeholder-text">This will contain the species' character-oriented description and mechanics, rather than the complete lore article.</p></section>
+  <nav class="tw-guide-nav"><a class="tw-btn tw-btn-outline" href={base+'create/species/'}>← All Species</a><a class="tw-btn tw-btn-primary" href={base+'create/facets/'}>Choose {entry.name} & Continue →</a></nav>
+  <p class="tw-mini">This is a navigation wireframe. Choosing a species advances the guide; a digital character record is not yet being saved.</p>
+ </div>
+</SiteLayout>

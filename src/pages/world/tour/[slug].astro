@@ -1,0 +1,24 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import {tourStops} from '../../../data/site-map.mjs';
+export function getStaticPaths(){return tourStops.map((entry,index)=>({params:{slug:entry.slug},props:{entry,index}}));}
+const {entry,index}=Astro.props;
+const prev=tourStops[index-1];
+const next=tourStops[index+1];
+const base=import.meta.env.BASE_URL.endsWith('/')?import.meta.env.BASE_URL:import.meta.env.BASE_URL+'/';
+---
+<SiteLayout title={'Guided Tour — '+entry.title} section="world">
+ <div class="tw-page tw-article">
+  <nav class="tw-breadcrumbs" aria-label="Breadcrumb"><a href={base}>Home</a><span class="tw-sep">/</span><a href={base+'world/'}>Explore the World</a><span class="tw-sep">/</span><span>Guided Tour</span></nav>
+  <p class="tw-eyebrow">Guided Tour · Sample stop {index+1} of {tourStops.length}</p>
+  <h1 class="tw-page-title">{entry.title}</h1>
+  <div class="tw-image-frame" role="img" aria-label={'Reserved art for '+entry.title}>Illustration for {entry.title}</div>
+  <p class="tw-note" style="margin-top:23px">This is a demonstration of the tour's navigation. The actual order of stops, narration, and artwork have not been decided.</p>
+  <section class="tw-panel">
+   <h3>The story of {entry.title}</h3>
+   <p class="tw-placeholder-text">A flavorful, in-world introduction to this subject will appear here. When its related Library articles are published, important terms in the narration can link directly to them.</p>
+  </section>
+  <section class="tw-panel"><h3>Explore beyond the tour</h3><p>You can wander into the Library at any stop, then return to the guided sequence.</p><a class="tw-card-label" href={base+'world/library/'}>Visit the Library →</a></section>
+  <nav class="tw-guide-nav"><a class="tw-btn tw-btn-outline" href={prev?base+'world/tour/'+prev.slug+'/':base+'world/'}>← {prev?'Previous Stop':'Explore the World'}</a><a class="tw-btn tw-btn-primary" href={next?base+'world/tour/'+next.slug+'/':base+'world/tour/complete/'}>{next?'Next Stop':'Finish Tour'} →</a></nav>
+ </div>
+</SiteLayout>
