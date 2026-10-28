@@ -1,0 +1,18 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import {tourStops} from '../../../data/site-map.mjs';
+const base=import.meta.env.BASE_URL.endsWith('/')?import.meta.env.BASE_URL:import.meta.env.BASE_URL+'/';
+const last=tourStops[tourStops.length-1];
+---
+<SiteLayout title="End of the Guided Tour" section="world">
+ <div class="tw-page tw-article">
+  <nav class="tw-breadcrumbs" aria-label="Breadcrumb"><a href={base}>Home</a><span class="tw-sep">/</span><a href={base+'world/'}>Explore the World</a><span class="tw-sep">/</span><span>Guided Tour</span></nav>
+  <p class="tw-eyebrow">End of the tour</p><h1 class="tw-page-title">Your Journey Continues</h1>
+  <p class="tw-lede">You've reached the end of this sample path. You can now explore freely or begin making a character who lives in the world.</p>
+  <div class="tw-card-grid tw-two" style="margin-top:30px">
+   <a class="tw-card tw-card-link" href={base+'world/library/'}><h3>Visit the Library</h3><p>Choose your own subject and follow the links.</p><span class="tw-card-label">Enter the Library →</span></a>
+   <a class="tw-card tw-card-link" href={base+'create/species/'}><h3>Create a Character</h3><p>Begin with your species and progress through the character guide.</p><span class="tw-card-label">Choose a Species →</span></a>
+  </div>
+  <nav class="tw-guide-nav"><a class="tw-btn tw-btn-outline" href={base+'world/tour/'+last.slug+'/'}>← Previous Stop</a></nav>
+ </div>
+</SiteLayout>

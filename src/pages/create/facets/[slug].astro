@@ -1,0 +1,16 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import {facets} from '../../../data/site-map.mjs';
+export function getStaticPaths(){return facets.map(entry=>({params:{slug:entry.slug},props:{entry}}));}
+const {entry}=Astro.props;
+const base=import.meta.env.BASE_URL.endsWith('/')?import.meta.env.BASE_URL:import.meta.env.BASE_URL+'/';
+---
+<SiteLayout title={entry.name+' Facet'} section="create">
+ <div class="tw-page tw-article">
+  <nav class="tw-breadcrumbs" aria-label="Breadcrumb"><a href={base}>Home</a><span class="tw-sep">/</span><a href={base+'create/facets/'}>Facets</a><span class="tw-sep">/</span><span>{entry.name}</span></nav>
+  <p class="tw-eyebrow">Facet guide</p><h1 class="tw-page-title">{entry.name}</h1>
+  <p class="tw-lede">{entry.summary}</p>
+  <section class="tw-panel"><h3>What does this facet offer?</h3><p class="tw-placeholder-text">In-depth strengths, examples, and mechanical information will go here when this facet's player guide is written.</p></section>
+  <nav class="tw-guide-nav"><a class="tw-btn tw-btn-outline" href={base+'create/facets/'}>← All Facets</a><a class="tw-btn tw-btn-primary" href={base+'create/attributes/'}>Continue to Attributes →</a></nav>
+ </div>
+</SiteLayout>

@@ -1,0 +1,26 @@
+---
+import '../styles/site.css';
+interface Props { title:string; description?:string; section?:string; }
+const {title,description="An evolving reference for the world and rules of Tear.",section=""}=Astro.props;
+const base=import.meta.env.BASE_URL.endsWith('/')?import.meta.env.BASE_URL:import.meta.env.BASE_URL+'/';
+const url=(p:string)=>base+p;
+---
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+ <meta name="description" content={description}/>
+ <title>{title === "Tear" ? "Tear — Tabletop Role-playing Game" : title + " — Tear"}</title>
+</head>
+<body>
+<a class="tw-skip" href="#main">Skip to content</a>
+<header class="tw-site-head"><div class="tw-head-inner">
+ <a class="tw-logo" href={base}>Tear<small>Tabletop Role-playing Game</small></a>
+ <nav class="tw-head-nav" aria-label="Main navigation">
+  <a href={url('create/species/')} aria-current={section==='create'?'page':undefined}>Create a Character</a>
+  <a href={url('world/')} aria-current={section==='world'?'page':undefined}>Explore the World</a>
+  <a href={url('rules/')} aria-current={section==='rules'?'page':undefined}>Rules Reference</a>
+ </nav></div></header>
+<main id="main" class="tw-main"><slot /></main>
+<footer class="tw-footer"><div class="tw-foot-inner"><span>TEAR · An evolving tabletop role-playing game</span><a href={url('about/')}>About the Project</a></div></footer>
+</body></html>

@@ -1,0 +1,23 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import {species,characterSteps} from '../../../data/site-map.mjs';
+const base=import.meta.env.BASE_URL.endsWith('/')?import.meta.env.BASE_URL:import.meta.env.BASE_URL+'/';
+---
+<SiteLayout title="Choose Your Species" section="create">
+ <div class="tw-page">
+  <nav class="tw-breadcrumbs" aria-label="Breadcrumb"><a href={base}>Home</a><span class="tw-sep">/</span><span>Create a Character</span><span class="tw-sep">/</span><span>Species</span></nav>
+  <p class="tw-eyebrow">Character creation · Step 1</p><h1 class="tw-page-title">Choose Your Species</h1>
+  <p class="tw-lede">Choose one of Tear's playable peoples. Select a card to read about that species, then continue to facets.</p>
+  <nav class="tw-steps" aria-label="Character creation steps">
+   {characterSteps.map((s,i)=><a class="tw-step" aria-current={i===0?'step':undefined} href={base+'create/'+s.slug+'/'}>{i+1}. {s.title}</a>)}
+  </nav>
+  <div class="tw-species-grid">
+   {species.map(s=><a class="tw-card tw-card-link" href={base+'create/species/'+s.slug+'/'}>
+    <div class="tw-image-frame tw-portrait" role="img" aria-label={'Future artwork for '+s.name}>{s.name} artwork</div>
+    <h3>{s.name}</h3><p>Playable species · Details to come</p><span class="tw-card-label">Learn more →</span>
+   </a>)}
+  </div>
+  <p class="tw-mini">Images and character rules will be added as the species articles are prepared. This wireframe does not yet store your choices.</p>
+  <nav class="tw-guide-nav"><a class="tw-btn tw-btn-outline" href={base}>← Homepage</a><a class="tw-btn tw-btn-outline" href={base+'create/facets/'}>Continue to Facets →</a></nav>
+ </div>
+</SiteLayout>

@@ -1,0 +1,22 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import {facets,characterSteps} from '../../../data/site-map.mjs';
+const base=import.meta.env.BASE_URL.endsWith('/')?import.meta.env.BASE_URL:import.meta.env.BASE_URL+'/';
+---
+<SiteLayout title="Choose Your Facets" section="create">
+ <div class="tw-page">
+  <nav class="tw-breadcrumbs" aria-label="Breadcrumb"><a href={base}>Home</a><span class="tw-sep">/</span><a href={base+'create/species/'}>Create a Character</a><span class="tw-sep">/</span><span>Facets</span></nav>
+  <p class="tw-eyebrow">Character creation · Step 2</p><h1 class="tw-page-title">Choose Your Facets</h1>
+  <p class="tw-lede">Facets shape your character's abilities. The current RPG source describes choosing three facets, including repeating a facet. The finished guide will help you allocate them.</p>
+  <nav class="tw-steps" aria-label="Character creation steps">
+   {characterSteps.map((s,i)=><a class="tw-step" aria-current={i===1?'step':undefined} href={base+'create/'+s.slug+'/'}>{i+1}. {s.title}</a>)}
+  </nav>
+  <p class="tw-note">The current RPG Project source lists nine facets. Their allocation interface and the exact character-creation rules will be reviewed before implementation. This step is a browsable wireframe, not a digital builder.</p>
+  <div class="tw-facet-grid" style="margin-top:24px">
+   {facets.map(f=><a class="tw-card tw-card-link" href={base+'create/facets/'+f.slug+'/'}>
+    <h3>{f.name}</h3><p>{f.summary}</p><span class="tw-card-label">Learn more →</span>
+   </a>)}
+  </div>
+  <nav class="tw-guide-nav"><a class="tw-btn tw-btn-outline" href={base+'create/species/'}>← Species</a><a class="tw-btn tw-btn-primary" href={base+'create/attributes/'}>Continue to Attributes →</a></nav>
+ </div>
+</SiteLayout>
