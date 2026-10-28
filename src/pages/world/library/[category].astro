@@ -1,0 +1,23 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import {libraryCategories} from '../../../data/site-map.mjs';
+export function getStaticPaths(){return libraryCategories.map(entry=>({params:{category:entry.slug},props:{entry}}));}
+const {entry}=Astro.props;
+const base=import.meta.env.BASE_URL.endsWith('/')?import.meta.env.BASE_URL:import.meta.env.BASE_URL+'/';
+---
+<SiteLayout title={entry.title} section="world">
+ <div class="tw-page tw-article">
+  <nav class="tw-breadcrumbs" aria-label="Breadcrumb"><a href={base}>Home</a><span class="tw-sep">/</span><a href={base+'world/'}>Explore the World</a><span class="tw-sep">/</span><a href={base+'world/library/'}>Library</a><span class="tw-sep">/</span><span>{entry.title}</span></nav>
+  <p class="tw-eyebrow">The Library</p><h1 class="tw-page-title">{entry.title}</h1>
+  <p class="tw-lede">{entry.description}</p>
+  <section class="tw-panel">
+   <h3>Planned shelves</h3>
+   <p>These subjects will lead to articles as they're written. They are not empty article links.</p>
+   <div class="tw-subtopics">{entry.subtopics.map(t=><span class="tw-subtopic">{t}</span>)}</div>
+  </section>
+  {entry.slug==='magic'&&<section class="tw-panel"><h3>Spell Compendium</h3><p>Explore the spells and their mechanics in the existing reference.</p><a class="tw-card-label" href={base+'spells/'}>Open Spell Reference →</a></section>}
+  {entry.slug==='creatures'&&<section class="tw-panel"><h3>Bestiary</h3><p>Creature mechanics belong in the Rules Reference; the Library will focus on their place in the world.</p><a class="tw-card-label" href={base+'rules/bestiary/'}>Visit the Bestiary →</a></section>}
+  {entry.slug==='inhabitants'&&<section class="tw-panel"><h3>Playable species</h3><p>Character-oriented information begins in the species selection guide.</p><a class="tw-card-label" href={base+'create/species/'}>See playable species →</a></section>}
+  <nav class="tw-guide-nav" aria-label="Section navigation"><a class="tw-btn tw-btn-outline" href={base+'world/library/'}>← Library</a><a class="tw-btn tw-btn-outline" href={base+'rules/'}>Rules Reference →</a></nav>
+ </div>
+</SiteLayout>

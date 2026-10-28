@@ -1,0 +1,22 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+const base=import.meta.env.BASE_URL.endsWith('/')?import.meta.env.BASE_URL:import.meta.env.BASE_URL+'/';
+---
+<SiteLayout title="Explore the World" section="world">
+ <div class="tw-page">
+  <nav class="tw-breadcrumbs" aria-label="Breadcrumb"><a href={base}>Home</a><span class="tw-sep">/</span><span>Explore the World</span></nav>
+  <div class="tw-intro-art"><div class="tw-image-frame" role="img" aria-label="Reserved space for future world artwork">World artwork — to be added</div></div>
+  <div class="tw-section-head" style="text-align:center">
+   <p class="tw-eyebrow">The world of Tear</p><h1 class="tw-page-title">Explore the World</h1>
+   <p class="tw-lede">Choose a path through Tear. Follow a guided journey or explore its library at your own pace.</p>
+  </div>
+  <div class="tw-card-grid tw-two">
+   <a class="tw-card tw-card-link" href={base+'world/tour/arcoleths/'}>
+    <h3>Take a Guided Tour</h3><p>A sequence of illustrated, connected stops. Follow the main path or wander into linked subjects when something interests you.</p><span class="tw-card-label">Begin the tour →</span>
+   </a>
+   <a class="tw-card tw-card-link" href={base+'world/library/'}>
+    <h3>Visit the Library</h3><p>Choose subjects, read freely, and follow the connections between Tear's peoples, places, beliefs, and history.</p><span class="tw-card-label">Enter the library →</span>
+   </a>
+  </div>
+ </div>
+</SiteLayout>

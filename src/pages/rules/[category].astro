@@ -1,0 +1,23 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import {rulesCategories} from '../../data/site-map.mjs';
+export function getStaticPaths(){return rulesCategories.map(entry=>({params:{category:entry.slug},props:{entry}}));}
+const {entry}=Astro.props;
+const base=import.meta.env.BASE_URL.endsWith('/')?import.meta.env.BASE_URL:import.meta.env.BASE_URL+'/';
+---
+<SiteLayout title={entry.title} section="rules">
+ <div class="tw-page tw-article">
+  <nav class="tw-breadcrumbs" aria-label="Breadcrumb"><a href={base}>Home</a><span class="tw-sep">/</span><a href={base+'rules/'}>Rules Reference</a><span class="tw-sep">/</span><span>{entry.title}</span></nav>
+  <p class="tw-eyebrow">Game reference</p><h1 class="tw-page-title">{entry.title}</h1>
+  <p class="tw-lede">{entry.description}</p>
+  <section class="tw-panel">
+   <h3>Planned subsections</h3><p>These are places reserved in the blueprint, not empty reference entries.</p>
+   <div class="tw-subtopics">{entry.subtopics.map(t=><span class="tw-subtopic">{t}</span>)}</div>
+  </section>
+  {entry.slug==='spells'&&<section class="tw-panel"><h3>Spell Reference</h3><p>The working Spell Reference contains the current published School spellbooks, casting methods, and upgrades.</p><a class="tw-card-label" href={base+'spells/'}>Open the Spell Reference →</a></section>}
+  {entry.slug==='equipment'&&<section class="tw-panel"><h3>Equipment library</h3><p>Armor-set pages, weapons, and adventuring equipment will be added from the equipment source when ready. No empty item pages have been generated.</p></section>}
+  {entry.slug==='bestiary'&&<section class="tw-panel"><h3>Creatures of Tear</h3><p>This section will provide combat statistics and encounter mechanics. The Library will handle ecology and lore.</p><a class="tw-card-label" href={base+'world/library/creatures/'}>Read about creatures in the Library →</a></section>}
+  {entry.slug==='skills'&&<section class="tw-panel"><h3>Character facets</h3><p>The character guide introduces the facet choices.</p><a class="tw-card-label" href={base+'create/facets/'}>Visit the Facets step →</a></section>}
+  <nav class="tw-guide-nav"><a class="tw-btn tw-btn-outline" href={base+'rules/'}>← Rules Reference</a><a class="tw-btn tw-btn-outline" href={base+'world/library/'}>Visit the Library →</a></nav>
+ </div>
+</SiteLayout>

@@ -1,0 +1,14 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+const base=import.meta.env.BASE_URL.endsWith('/')?import.meta.env.BASE_URL:import.meta.env.BASE_URL+'/';
+---
+<SiteLayout title="About the Project">
+ <div class="tw-page tw-article">
+  <nav class="tw-breadcrumbs" aria-label="Breadcrumb"><a href={base}>Home</a><span class="tw-sep">/</span><span>About the Project</span></nav>
+  <p class="tw-eyebrow">Behind the game</p><h1 class="tw-page-title">About the Project</h1>
+  <p class="tw-lede">Tear is my attempt to fix everything wrong with tabletop RPGs, video games, and movie adaptations.</p>
+  <section class="tw-panel"><h3>Why Tear?</h3><p class="tw-placeholder-text">The creator's story and design philosophy will be written here.</p></section>
+  <section class="tw-panel"><h3>Support the Project</h3><p>The Patreon invitation belongs on this page, once a verified destination is provided. It will not be placed in the homepage elevator pitch.</p></section>
+  <nav class="tw-guide-nav"><a class="tw-btn tw-btn-outline" href={base}>← Back to Tear</a></nav>
+ </div>
+</SiteLayout>

@@ -1,0 +1,18 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import {libraryCategories} from '../../../data/site-map.mjs';
+const base=import.meta.env.BASE_URL.endsWith('/')?import.meta.env.BASE_URL:import.meta.env.BASE_URL+'/';
+---
+<SiteLayout title="The Library" section="world">
+ <div class="tw-page">
+  <nav class="tw-breadcrumbs" aria-label="Breadcrumb"><a href={base}>Home</a><span class="tw-sep">/</span><a href={base+'world/'}>Explore the World</a><span class="tw-sep">/</span><span>Library</span></nav>
+  <div class="tw-intro-art"><div class="tw-image-frame" role="img" aria-label="Reserved space for future library artwork">Library artwork — to be added</div></div>
+  <p class="tw-eyebrow">Explore freely</p><h1 class="tw-page-title">The Library of Tear</h1>
+  <p class="tw-lede">Choose a subject and follow your curiosity. As the collection grows, articles will connect the places, people, institutions, and ideas of Tear.</p>
+  <p class="tw-note">Navigation wireframe: these shelves are established, but their individual articles have not been written or published yet.</p>
+  <div class="tw-card-grid tw-two" style="margin-top:30px">
+   {libraryCategories.map(c=><a class="tw-card tw-card-link" href={base+'world/library/'+c.slug+'/'}><h3>{c.title}</h3><p>{c.description}</p><span class="tw-card-label">Browse this subject →</span></a>)}
+  </div>
+  <section class="tw-panel"><h3>Looking for the game rules?</h3><p>The Rules Reference is a companion to this library. Lore articles will eventually link to the rules and game data they relate to.</p><a class="tw-card-label" href={base+'rules/'}>Open Rules Reference →</a></section>
+ </div>
+</SiteLayout>

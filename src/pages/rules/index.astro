@@ -1,0 +1,16 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import {rulesCategories} from '../../data/site-map.mjs';
+const base=import.meta.env.BASE_URL.endsWith('/')?import.meta.env.BASE_URL:import.meta.env.BASE_URL+'/';
+---
+<SiteLayout title="Rules Reference" section="rules">
+ <div class="tw-page">
+  <nav class="tw-breadcrumbs" aria-label="Breadcrumb"><a href={base}>Home</a><span class="tw-sep">/</span><span>Rules Reference</span></nav>
+  <p class="tw-eyebrow">Rules and game data</p><h1 class="tw-page-title">Rules Reference</h1>
+  <p class="tw-lede">Find Tear's systems and game statistics. The Spell Reference is already available; the remaining sections will grow as their source material is prepared for publication.</p>
+  <div class="tw-card-grid tw-two" style="margin-top:30px">
+   {rulesCategories.map(c=><a class="tw-card tw-card-link" href={base+'rules/'+c.slug+'/'}><h3>{c.title}</h3><p>{c.description}</p><span class="tw-card-label">Explore this section →</span></a>)}
+  </div>
+  <section class="tw-panel"><h3>Looking for the world behind the rules?</h3><p>The Library collects the lore, history, and in-world context for the same subjects.</p><a class="tw-card-label" href={base+'world/library/'}>Visit the Library →</a></section>
+ </div>
+</SiteLayout>
