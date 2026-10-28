@@ -1,11 +1,12 @@
 import {byLevel,spellPath,collegePath,schoolPath,levelNumber,validDiagramPath} from './spell-model.mjs';
+import spells from '../data/spellbook.json';
+import {spellDiagrams} from '../data/spell-diagrams.mjs';
 export function initSpellReference(){
 
 const root=document.querySelector('[data-spell-root]');
 if(!root)return;
 const base=root.dataset.base;
-const spells=JSON.parse(document.getElementById('spell-data').textContent);
-const diagrams=JSON.parse(document.getElementById('diagram-data').textContent);
+const diagrams=spellDiagrams;
 const initial=spells.find(s=>s.id===root.dataset.initialId)||spells[0];
 const esc = s => String(s ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const stat = (label,value) => '<div class="stat"><span class="stat-number">'+esc(value||'—')+'</span><span class="stat-label">'+esc(label)+'</span></div>';
