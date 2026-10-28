@@ -1,0 +1,42 @@
+---
+import '../styles/spells.css';
+const {initialId=''}=Astro.props;
+const base=import.meta.env.BASE_URL.endsWith('/')?import.meta.env.BASE_URL:import.meta.env.BASE_URL+'/';
+---
+<div data-spell-root data-initial-id={initialId} data-base={base}>
+
+<header class="site-head"><div class="site-head-inner"><a class="brand" href={base} style="color:inherit;text-decoration:none">Tear <small>Tabletop Role-playing Game</small></a><div class="site-head-note"><a href={base} style="color:inherit">Home</a> &nbsp;/&nbsp; Spell Reference</div></div></header>
+<div class="layout">
+  <aside aria-label="Spell navigation">
+    <p class="section-label">Spell Library</p>
+    <a class="catalog-link" style="margin:0 0 5px" href={base+'spells/colleges/'}>Browse Colleges &amp; Schools →</a>
+    <label for="spell-search" class="selector-label">Search all spells</label>
+    <input class="search" id="spell-search" placeholder="Search spells..." autocomplete="off" aria-controls="search-results">
+    <div class="search-results" id="search-results" aria-label="Spell search results" hidden></div>
+    <label for="college-filter" class="selector-label">College</label>
+    <select class="search" id="college-filter" aria-label="Select College"></select>
+    <p class="selector-label" id="school-heading">School</p>
+    <div class="school-buttons" id="school-buttons" role="group" aria-labelledby="school-heading"></div>
+    <label for="spell-select" class="selector-label">Spell</label>
+    <select class="search" id="spell-select" aria-label="Select spell"></select>
+    <p class="microcopy">Spells imported from the current School snapshots. Incomplete work-in-progress entries retain unspecified fields.</p>
+  </aside>
+  <main class="page"><div class="crumb" id="crumb">Spells</div><article class="spell-page" id="spell"></article></main>
+</div>
+
+<dialog class="diagram-dialog" id="diagram-dialog" aria-labelledby="diagram-title">
+  <div class="diagram-head">
+    <div><p class="section-label">Illustration</p><h2 id="diagram-title"></h2></div>
+    <button type="button" class="dialog-close" id="diagram-close" aria-label="Close spell illustration">Close</button>
+  </div>
+  <p id="diagram-value"></p>
+  <img id="diagram-image" class="diagram-image" alt="Selected diagram" hidden>
+  <p id="diagram-description"></p>
+</dialog>
+<div class="footer">Spell library · Generated from a read-only snapshot of RPG Project Spells.</div>
+
+</div>
+<script>
+import {initSpellReference} from '../scripts/spell-app.mjs';
+initSpellReference();
+</script>

@@ -1,0 +1,35 @@
+---
+import SiteLayout from '../../../../layouts/SiteLayout.astro';
+import spells from '../../../../data/spellbook.json';
+import {slug,byLevel,levelNumber} from '../../../../scripts/spell-model.mjs';
+export function getStaticPaths(){
+  const unique=new Map();
+  for(const s of spells){
+    if(!s.college||!s.school)continue;
+    const key=slug(s.college)+'/'+slug(s.school);
+    if(!unique.has(key))unique.set(key,{college:s.college,school:s.school});
+  }
+  return [...unique.values()].map(entry=>({params:{college:slug(entry.college),school:slug(entry.school)},props:entry}));
+}
+const {college,school}=Astro.props;
+const base=import.meta.env.BASE_URL.endsWith('/')?import.meta.env.BASE_URL:import.meta.env.BASE_URL+'/';
+const members=byLevel(spells.filter(s=>s.college===college&&s.school===school));
+const groups=new Map();
+for(const s of members){
+ const level=Number.isFinite(levelNumber(s))?s.level:'Unspecified';
+ if(!groups.has(level))groups.set(level,[]);
+ groups.get(level).push(s);
+}
+---
+<SiteLayout title={school+' Spellbook'} section="rules">
+ <div class="tw-page tw-article">
+  <nav class="tw-breadcrumbs" aria-label="Breadcrumb"><a href={base}>Home</a><span class="tw-sep">/</span><a href={base+'spells/colleges/'}>Colleges</a><span class="tw-sep">/</span><a href={base+'spells/colleges/'+slug(college)+'/'}>{college}</a><span class="tw-sep">/</span><span>{school}</span></nav>
+  <p class="tw-eyebrow">Spell Compendium · {college}</p><h1 class="tw-page-title">{school}</h1>
+  <p class="tw-lede">Published spells belonging to the {school} School. Arranged by minimum level and then alphabetically.</p>
+  {[...groups.entries()].map(([level,list])=><section class="tw-panel">
+    <h3>{level==='Unspecified'?'Level not specified':'Minimum Level '+level}</h3>
+    <ul class="tw-list">{list.map(s=><li><a href={base+'spells/'+s.id+'/'}>{s.name}</a>{s.incompleteFields?.length?<span class="tw-mini"> · Work in progress</span>:null}</li>)}</ul>
+  </section>)}
+  <nav class="tw-guide-nav"><a class="tw-btn tw-btn-outline" href={base+'spells/colleges/'+slug(college)+'/'}>← College of {college}</a><a class="tw-btn tw-btn-outline" href={base+'spells/'}>Search Spell Reference →</a></nav>
+ </div>
+</SiteLayout>

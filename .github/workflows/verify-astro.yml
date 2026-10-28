@@ -24,3 +24,4 @@ jobs:
           test -f dist/index.html
           test -f dist/spells/index.html
           test -f dist/spells.html
+          node scripts/verify-spell-pages.mjs

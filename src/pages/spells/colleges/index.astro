@@ -1,0 +1,18 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import spells from '../../../data/spellbook.json';
+import {slug} from '../../../scripts/spell-model.mjs';
+const base=import.meta.env.BASE_URL.endsWith('/')?import.meta.env.BASE_URL:import.meta.env.BASE_URL+'/';
+const colleges=[...new Set(spells.map(s=>s.college))].filter(Boolean).sort();
+---
+<SiteLayout title="Magic Colleges" section="rules">
+ <div class="tw-page">
+  <nav class="tw-breadcrumbs" aria-label="Breadcrumb"><a href={base}>Home</a><span class="tw-sep">/</span><a href={base+'rules/'}>Rules</a><span class="tw-sep">/</span><a href={base+'spells/'}>Spell Reference</a><span class="tw-sep">/</span><span>Colleges</span></nav>
+  <p class="tw-eyebrow">Spell Compendium</p><h1 class="tw-page-title">Magic Colleges</h1>
+  <p class="tw-lede">Browse the Colleges represented in the currently published spell data. Each College lists its Schools and spells.</p>
+  <div class="tw-card-grid tw-two" style="margin-top:30px">
+   {colleges.map(college=><a class="tw-card tw-card-link" href={base+'spells/colleges/'+slug(college)+'/'}><h3>College of {college}</h3><p>{spells.filter(s=>s.college===college).length} published spell entries</p><span class="tw-card-label">Browse College →</span></a>)}
+  </div>
+  <nav class="tw-guide-nav"><a class="tw-btn tw-btn-outline" href={base+'spells/'}>← Spell Reference</a></nav>
+ </div>
+</SiteLayout>
