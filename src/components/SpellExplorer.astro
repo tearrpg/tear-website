@@ -11,6 +11,7 @@ const base=import.meta.env.BASE_URL.endsWith('/')?import.meta.env.BASE_URL:impor
 <div class="layout">
   <aside aria-label="Spell navigation">
     <p class="section-label">Spell Library</p>
+    <a class="catalog-link" style="margin:0 0 5px" href={base+'spells/colleges/'}>Browse Colleges &amp; Schools →</a>
     <label for="spell-search" class="selector-label">Search all spells</label>
     <input class="search" id="spell-search" placeholder="Search spells..." autocomplete="off" aria-controls="search-results">
     <div class="search-results" id="search-results" aria-label="Spell search results" hidden></div>
