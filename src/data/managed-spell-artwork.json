@@ -1,1 +1,17 @@
-{}
+{
+  "evocation-earth-bolt": {
+    "defaultId": "jade-saserna-2026",
+    "images": [
+      {
+        "id": "jade-saserna-2026",
+        "src": "art/spells/evocation-earth-bolt--jade-saserna-2026.webp",
+        "source": "artwork-source/spells/evocation-earth-bolt--jade-saserna-2026.tiff",
+        "title": "Earth Bolt",
+        "artist": "Jade Saserna",
+        "caption": "",
+        "alt": "A hand-drawn spellcaster in purple projecting a swirling brown and green earth bolt under a blue sky.",
+        "displayOrder": 1
+      }
+    ]
+  }
+}
