@@ -191,7 +191,16 @@ function artSpellIds_(){
   return ids;
 }
 function artMessage_(msg){
-  SpreadsheetApp.getUi().alert('Tear Artwork',msg,SpreadsheetApp.getUi().ButtonSet.OK);
+  // Running a function from the Apps Script editor does not always provide
+  // an active Sheets UI. Logging must work in either execution context.
+  console.log(msg);
+  try{
+    const ui=SpreadsheetApp.getUi();
+    ui.alert('Tear Artwork',msg,ui.ButtonSet.OK);
+  }catch(e){
+    console.log('No spreadsheet dialog available. Open the Sheet and run '+
+      'Tear Artwork > Validate Ready Artwork from its menu to see dialogs.');
+  }
 }
 function artError_(err){
   const message=String(err&&err.message||err);
