@@ -32,3 +32,15 @@ test('Apps Script artwork validator reads 148 spell IDs from the checked-in snap
   assert(ids.has('inertia-inertial-projectile-shield'));
   assert.equal(paths.length,2);
 });
+
+test('Apps Script validation feedback does not throw without a spreadsheet UI',()=>{
+  const script=readFileSync('scripts/google-apps-script/artwork-publisher.gs','utf8');
+  const messages=[];
+  const context={
+    console:{log:s=>messages.push(String(s))},
+    SpreadsheetApp:{getUi:()=>{throw Error('Cannot call SpreadsheetApp.getUi() from this context');}}
+  };
+  runInNewContext(script,context,{filename:'artwork-publisher.gs'});
+  assert.doesNotThrow(()=>context.artMessage_('No rows marked Ready'));
+  assert(messages.some(x=>x.includes('No rows marked Ready')));
+});
