@@ -15,7 +15,7 @@ function onOpen(){
 function validateArtworkRegistry(){
   try{
     const rows=artRows_(),ready=rows.filter(x=>x.status==='Ready');
-    if(!ready.length)return artMessage_('No artwork marked Ready. Change column K to Ready first.');
+    if(!ready.length)return artMessage_('No artwork marked Ready. Set Publish Status to Ready first.');
     artValidate_(rows,artSpellIds_());
     artFiles_(ready);
     artMessage_('Validation passed: '+ready.length+' image(s) ready to publish. Nothing was uploaded.');
@@ -26,10 +26,12 @@ function publishArtwork(){
   if(!lock.tryLock(10000))return artMessage_('Another publish is running.');
   try{
     const rows=artRows_(),ready=rows.filter(x=>x.status==='Ready');
-    if(!ready.length)return artMessage_('Nothing to publish. Mark row(s) Ready in column K.');
+    if(!ready.length)return artMessage_('Nothing to publish. Mark Publish Status to Ready on the desired rows.');
     if(ready.length>ARTWORK.maxReady)throw Error('Publish at most '+ARTWORK.maxReady+' Ready images per batch.');
     artValidate_(rows,artSpellIds_());
     const files=artFiles_(ready);
+    const sheet=SpreadsheetApp.getActiveSpreadsheet().getSheetByName(ARTWORK.tab);
+    const statusColumn=artStatusColumn_(sheet); // Resolve BEFORE the GitHub commit.
     const fileByRow=new Map(files.map(f=>[f.row,f]));
     const ref=artGit_('GET','/git/ref/heads/'+ARTWORK.branch);
     const parentSha=ref.object.sha;
@@ -67,13 +69,19 @@ function publishArtwork(){
     });
     // GitHub rejects non-fast-forward updates: do not overwrite simultaneous edits.
     artGit_('PATCH','/git/refs/heads/'+ARTWORK.branch,{sha:commit.sha,force:false});
-    const sheet=SpreadsheetApp.getActiveSpreadsheet().getSheetByName(ARTWORK.tab);
-    for(const row of ready)sheet.getRange(row.row,11).setValue('Published');
+    for(const row of ready)sheet.getRange(row.row,statusColumn).setValue('Published');
     SpreadsheetApp.flush();
     artMessage_(ready.length+' image(s) committed to GitHub. The Pages deployment is still pending.\n'+
       'https://github.com/'+ARTWORK.repo+'/commit/'+commit.sha);
   }catch(e){artError_(e);}
   finally{lock.releaseLock();}
+}
+function artStatusColumn_(sheet){
+  if(!sheet)throw Error('Missing sheet tab '+ARTWORK.tab);
+  const headings=sheet.getRange(1,1,1,sheet.getLastColumn()).getValues()[0];
+  const index=headings.findIndex(x=>String(x).trim()==='Publish Status');
+  if(index<0)throw Error('Missing Publish Status column.');
+  return index+1; // Sheets API column numbers are 1-based.
 }
 function artRows_(){
   const sh=SpreadsheetApp.getActiveSpreadsheet().getSheetByName(ARTWORK.tab);
