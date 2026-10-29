@@ -1,4 +1,5 @@
-import {byLevel,spellPath,collegePath,schoolPath,levelNumber,validDiagramPath} from './spell-model.mjs';
+import {byLevel,spellPath,collegePath,schoolPath,levelNumber,validDiagramPath,validArtworkPath} from './spell-model.mjs';
+import {spellArtwork} from '../data/spell-artwork.mjs';
 import spells from '../data/spellbook.json';
 import {spellDiagrams} from '../data/spell-diagrams.mjs';
 export function initSpellReference(){
@@ -88,6 +89,36 @@ function renderSearch() {
     p.textContent='Showing the first 30 results. Refine your search for more.';results.append(p);
   }
 }
+// Art is selected per spell, not stored in the spell statistics spreadsheet.
+let artworkIndex=null;
+const artEntries=spell=>{
+  const config=spellArtwork[spell.id];
+  return (config?.images??[]).filter(image=>validArtworkPath(image.src));
+};
+function artworkMarkup(spell){
+  const config=spellArtwork[spell.id];
+  const images=artEntries(spell);
+  if(!images.length){
+    return '<div class="artwork-slot" role="img" aria-label="Space reserved for future illustration of '+esc(spell.name)+'"></div>';
+  }
+  const defaultIndex=images.findIndex(img=>img.id===config.defaultId);
+  if(artworkIndex===null||artworkIndex<0||artworkIndex>=images.length)
+    artworkIndex=defaultIndex>=0?defaultIndex:0;
+  const image=images[artworkIndex];
+  const caption=image.caption?'<span class="artwork-caption">'+esc(image.caption)+'</span>':'';
+  const credit=image.artist?'<span class="artwork-artist">Illustration by '+esc(image.artist)+'</span>':'';
+  const controls=images.length>1?
+    '<div class="artwork-controls" aria-label="Other illustrations">'+
+      '<button type="button" class="artwork-gallery-button" data-direction="previous">← Previous</button>'+
+      '<span class="artwork-count">Art '+(artworkIndex+1)+' of '+images.length+'</span>'+
+      '<button type="button" class="artwork-gallery-button" data-direction="next">Next →</button>'+
+    '</div>':'';
+  return '<figure class="artwork-gallery">'+
+    '<div class="artwork-slot"><img src="'+esc(base+image.src)+'" alt="'+esc(image.alt||'Artwork for '+spell.name)+'" loading="lazy" width="1080" height="1080"></div>'+
+    '<figcaption class="artwork-credits">'+credit+caption+'</figcaption>'+
+    controls+
+  '</figure>';
+}
 function renderSpell(){
   const s=spells.find(x=>x.id===selected);
   if(!s){document.getElementById('spell').textContent='No spells available.';return;}
@@ -117,8 +148,7 @@ function renderSpell(){
     '<header><p class="eyebrow"><a href="'+base+collegePath(s.college)+'">'+esc(s.college)+'</a> / <a href="'+base+schoolPath(s.college,s.school)+'">'+esc(s.school)+'</a></p><h1>'+esc(s.name)+'</h1>'+
     '<p class="subhead">Minimum Level '+fmt(s.level)+' · '+fmt(s.type)+' · Element: '+fmt(s.element)+'</p>'+
     '<a class="catalog-link" href="'+base+spellPath(s)+'">Permanent link to this spell →</a></header>'+
-    '<div class="artwork-slot" role="img" aria-label="Space reserved for future illustration of '+esc(s.name)+'">'+
-    (s.artwork?'<img src="'+esc(s.artwork)+'" alt="Illustration of '+esc(s.name)+'">':'')+'</div>'+
+    artworkMarkup(s)+
     (s.incompleteFields?.length?'<p class="microcopy">Work in progress: some spell statistics are not yet specified.</p>':'')+
     '<div class="cost-grid" aria-label="Costs for all casting methods">'+stat('MP Cost · All methods',s.mp)+stat('AP Cost · All methods',s.ap)+'</div>'+
     '<div class="method-section"><p class="method-heading">Casting method</p>'+
@@ -135,6 +165,12 @@ function renderSpell(){
     method=b.dataset.method;renderSpell();
   }));
   document.getElementById('spell').querySelectorAll('.geometry-button').forEach(b=>b.addEventListener('click',()=>openGeometry(b.dataset.geometry)));
+  document.getElementById('spell').querySelectorAll('.artwork-gallery-button').forEach(button=>button.addEventListener('click',()=>{
+    const images=artEntries(s);
+    if(images.length<2)return;
+    artworkIndex=(artworkIndex+(button.dataset.direction==='previous'?-1:1)+images.length)%images.length;
+    renderSpell();
+  }));
 }
 
 const diagramDialog=document.getElementById('diagram-dialog');

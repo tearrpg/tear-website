@@ -100,3 +100,13 @@
   .catalog-link{display:inline-block;margin-top:14px;font-size:13px}
   .level-note{color:var(--muted);font-size:12px}
   
+/* Optional gallery. A single image shows its credit without navigation controls. */
+.artwork-gallery{width:min(100%,280px);margin:24px 0 0}
+.artwork-gallery .artwork-slot{width:100%;margin:0}
+.artwork-credits{display:flex;flex-direction:column;gap:3px;margin-top:9px;color:var(--muted);font-size:12px;line-height:1.45}
+.artwork-artist{font-weight:600;color:var(--ink)}
+.artwork-caption{font-style:italic}
+.artwork-controls{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px}
+.artwork-gallery-button{background:var(--paper);border:1px solid var(--line);border-radius:4px;color:var(--accent);font-size:12px;padding:5px 7px;cursor:pointer}
+.artwork-gallery-button:hover{background:var(--subtle)}
+.artwork-count{font-size:11px;color:var(--muted)}
