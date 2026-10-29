@@ -44,3 +44,27 @@ test('Apps Script validation feedback does not throw without a spreadsheet UI',(
   assert.doesNotThrow(()=>context.artMessage_('No rows marked Ready'));
   assert(messages.some(x=>x.includes('No rows marked Ready')));
 });
+
+
+test('Publish Status can be moved to column C without updating a different column',()=>{
+  const script=readFileSync('scripts/google-apps-script/artwork-publisher.gs','utf8');
+  const context={};
+  runInNewContext(script,context,{filename:'artwork-publisher.gs'});
+  const sheet={
+    getLastColumn:()=>13,
+    getRange:(row,col,rows,cols)=>{
+      assert.equal(row,1);
+      assert.equal(col,1);
+      assert.equal(rows,1);
+      assert.equal(cols,13);
+      return {getValues:()=>[[
+        'Content Type','Content ID','Publish Status','Artwork ID',
+        'Drive File URL','Artwork Role','Artist Credit','Artwork Title',
+        'Caption','Alt Text','Default Image','Display Order','Notes'
+      ]]};
+    }
+  };
+  assert.equal(context.artStatusColumn_(sheet),3);
+  assert(!script.includes("sheet.getRange(row.row,11).setValue('Published')"));
+  assert(script.includes("sheet.getRange(row.row,statusColumn).setValue('Published')"));
+});
