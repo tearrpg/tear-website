@@ -160,9 +160,35 @@ function artGitText_(path){
     .getDataAsString('UTF-8');
 }
 function artSpellIds_(){
-  const spells=JSON.parse(artGitText_('src/data/spellbook.json'));
-  if(!Array.isArray(spells)||!spells.length)throw Error('Cannot read spell IDs from the website.');
-  return new Set(spells.map(s=>s.id));
+  // spellbook.json is generated during Astro's build; it is NOT committed.
+  // The published source snapshot is committed. It is >1 MB, so the GitHub
+  // Contents API is unsuitable: use Git Trees + Git Blobs instead.
+  const snapshotPath='scripts/snapshots/spellbook.values.json';
+  const tree=artGit_('GET','/git/trees/'+encodeURIComponent(ARTWORK.branch)+'?recursive=1');
+  if(tree.truncated||!Array.isArray(tree.tree))throw Error('GitHub tree was unavailable or truncated.');
+  const item=tree.tree.find(x=>x.path===snapshotPath&&x.type==='blob');
+  if(!item)throw Error('Cannot find the spell snapshot in GitHub.');
+  const blob=artGit_('GET','/git/blobs/'+item.sha);
+  if(blob.encoding!=='base64')throw Error('Cannot decode the spell snapshot from GitHub.');
+  const raw=Utilities.newBlob(
+    Utilities.base64Decode(String(blob.content).replace(/\s/g,''))
+  ).getDataAsString('UTF-8');
+  const snapshot=JSON.parse(raw);
+  if(!Array.isArray(snapshot.sheets))throw Error('Unexpected spell snapshot structure.');
+  const slug=value=>String(value||'').toLowerCase().normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  const ids=new Set();
+  for(const sheet of snapshot.sheets){
+    if(!sheet||!Array.isArray(sheet.values))continue;
+    for(const row of sheet.values){
+      if(!Array.isArray(row))continue;
+      const label=String(row[0]||'').trim().toLowerCase();
+      const name=String(row[1]||'').trim();
+      if(label==='spell name'&&name)ids.add(slug(sheet.sheet)+'-'+slug(name));
+    }
+  }
+  if(!ids.size)throw Error('No spell IDs found in the GitHub snapshot.');
+  return ids;
 }
 function artMessage_(msg){
   SpreadsheetApp.getUi().alert('Tear Artwork',msg,SpreadsheetApp.getUi().ButtonSet.OK);
