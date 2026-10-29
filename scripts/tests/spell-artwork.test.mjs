@@ -18,7 +18,7 @@ test('all assigned artwork is local, credited and linked to a published spell',(
     assert.equal(new Set(gallery.images.map(image=>image.id)).size,gallery.images.length,'Unique illustration IDs');
     for(const image of gallery.images){
       assert(validArtworkPath(image.src),'Local artwork path');
-      assert(existsSync('public/'+image.src),'Image file exists: '+image.src);
+      assert(existsSync('public/'+image.src)||existsSync(image.source||''),'Public image or original source exists: '+image.src);
       assert(image.artist?.trim(),'Artist credit exists: '+image.src);
       assert(image.alt?.trim(),'Artwork has accessible description: '+image.src);
     }

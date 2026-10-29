@@ -9,12 +9,13 @@
     "preview": "astro preview",
     "test:import": "node --test scripts/tests/*.test.mjs",
     "import:spells": "node scripts/convert-spells.mjs",
-    "prebuild": "node scripts/build-spellbook.mjs",
-    "predev": "node scripts/build-spellbook.mjs",
+    "prebuild": "node scripts/build-artwork.mjs && node scripts/build-spellbook.mjs",
+    "predev": "node scripts/build-artwork.mjs && node scripts/build-spellbook.mjs",
     "build:spells": "node scripts/build-spellbook.mjs"
   },
   "dependencies": {
-    "astro": "7.4.2"
+    "astro": "7.4.2",
+    "sharp": "^0.35.4"
   },
   "engines": {
     "node": ">=24.0.0"
