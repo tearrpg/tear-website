@@ -15,3 +15,6 @@ export const collegePath=college=>'spells/colleges/'+slug(college)+'/';
 export const schoolPath=(college,school)=>'spells/schools/'+slug(college)+'/'+slug(school)+'/';
 // Paths are strictly relative. They must not contain arbitrary URLs, queries or traversal.
 export const validDiagramPath=path=>typeof path==='string'&&/^diagrams\/[a-z0-9][a-z0-9/_-]*\.(?:png|jpg|jpeg|webp|svg)$/i.test(path);
+
+// Only same-site artwork files may appear in the spell gallery.
+export const validArtworkPath=path=>typeof path==='string'&&/^art\/spells\/[a-z0-9][a-z0-9/_-]*\.(?:png|jpg|jpeg|webp)$/i.test(path);
