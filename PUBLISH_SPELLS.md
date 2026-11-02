@@ -9,7 +9,7 @@ The website uses a one-click, **manual**, Google Sheets publishing menu. It does
 3. Create a **fine-grained GitHub personal access token**, limited to repository `tearrpg/tear-website`, with `Contents: Read and write` permission. Give it a reasonable expiry; renew later as necessary. Never paste the token into ChatGPT, GitHub source files, the sheet itself, or emails.
 4. In the Apps Script project, open **Project Settings** → **Script properties**. Add property `GITHUB_TOKEN` with the token as its value. Do not store it in code.
 5. Save, reopen the spreadsheet, and select **Tear Website → Publish spell updates**. The first run will ask you to grant the script permission to read the sheet and call GitHub. Review the requested permissions carefully.
-6. Confirm the spell count. The script commits a fresh read-only snapshot to GitHub `main`. GitHub Actions then validates, rebuilds Astro, and deploys the updated site. The Google spreadsheet is never edited.
+6. Confirm the spell count. The script commits a fresh read-only snapshot to GitHub `main`. For snapshots larger than 1 MB it reads the previous version through GitHub's Git Blobs API; the Contents API alone does not return those files' JSON bodies. GitHub Actions then validates, rebuilds Astro, and deploys the updated site. The Google spreadsheet is never edited.
 
 Because the bound Apps Script project can be accessible to other editors of the spreadsheet, only trusted editors should have script access while it holds a GitHub token. Revoke a lost or leaked token immediately.
 

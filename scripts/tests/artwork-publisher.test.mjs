@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {runInNewContext} from 'node:vm';
 
-test('Apps Script artwork validator reads 148 spell IDs from the checked-in snapshot',()=>{
+test('Apps Script artwork validator reads all IDs from the checked-in snapshot',()=>{
   const script=readFileSync('scripts/google-apps-script/artwork-publisher.gs','utf8');
   const snapshot=readFileSync('scripts/snapshots/spellbook.values.json');
   const paths=[];
@@ -27,7 +27,7 @@ test('Apps Script artwork validator reads 148 spell IDs from the checked-in snap
     throw Error('Unexpected GitHub request: '+path);
   };
   const ids=context.artSpellIds_();
-  assert.equal(ids.size,148);
+  assert.equal(ids.size,new Set(JSON.parse(snapshot.toString('utf8')).sheets.flatMap(s=>s.values.filter(row=>String(row[0]||'').toLowerCase()==='spell name' && String(row[1]||'').trim()).map(row=>s.sheet.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'-'+String(row[1]).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')))).size);
   assert(ids.has('evocation-earth-bolt'));
   assert(ids.has('inertia-inertial-projectile-shield'));
   assert.equal(paths.length,2);
