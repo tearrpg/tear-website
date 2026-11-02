@@ -82,6 +82,35 @@ function tearGitHubRequest_(method, url, token, payload) {
   return JSON.parse(response.getContentText());
 }
 
+
+// GitHub's Contents API does not return base64 file contents for files over
+// 1 MB (encoding: "none", content: ""). Our snapshot already exceeds that.
+// Obtain the SHA from Contents, then retrieve the complete file via Git Blobs.
+function tearExistingSnapshot_(url, token) {
+  const file = tearGitHubRequest_('get', url + '?ref=main', token);
+  if (!file || !/^[a-f0-9]{40}$/.test(String(file.sha || ''))) {
+    throw new Error('GitHub did not provide a valid SHA for the current spell snapshot.');
+  }
+  const blobUrl = 'https://api.github.com/repos/' + TEAR_REPO + '/git/blobs/' + file.sha;
+  const blob = tearGitHubRequest_('get', blobUrl, token);
+  if (!blob || blob.encoding !== 'base64' || !blob.content) {
+    throw new Error('GitHub did not return the spell snapshot data from its Git Blob API.');
+  }
+  let snapshot;
+  try {
+    const json = Utilities.newBlob(
+      Utilities.base64Decode(String(blob.content).replace(/\s/g, ''))
+    ).getDataAsString('UTF-8');
+    snapshot = JSON.parse(json);
+  } catch (error) {
+    throw new Error('Could not decode existing spell snapshot from GitHub: ' + error.message);
+  }
+  if (!snapshot || !Array.isArray(snapshot.sheets)) {
+    throw new Error('Existing GitHub spell snapshot has an invalid structure.');
+  }
+  return { sha: file.sha, snapshot: snapshot };
+}
+
 function publishTearSpells() {
   const ui = SpreadsheetApp.getUi();
   const lock = LockService.getScriptLock();
@@ -106,12 +135,11 @@ function publishTearSpells() {
 
     const url = 'https://api.github.com/repos/' + TEAR_REPO +
       '/contents/' + TEAR_SNAPSHOT_PATH;
-    const existing = tearGitHubRequest_('get', url + '?ref=main', token);
+    const existing = tearExistingSnapshot_(url, token);
     const newJson = JSON.stringify(data.snapshot, null, 2) + '\n';
 
     // Avoid unnecessary deployment when the spreadsheet is unchanged.
-    const oldJson = Utilities.newBlob(Utilities.base64Decode(existing.content.replace(/\s/g, ''))).getDataAsString('UTF-8');
-    if (JSON.stringify(JSON.parse(oldJson)) === JSON.stringify(data.snapshot)) {
+    if (JSON.stringify(existing.snapshot) === JSON.stringify(data.snapshot)) {
       ui.alert('No new spell data to publish. The website is already using this snapshot.');
       return;
     }
