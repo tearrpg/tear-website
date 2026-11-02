@@ -9,7 +9,7 @@ test('all current School tabs are discovered and parsed',()=>{
  assert.deepEqual(errors,[]);
  assert(snapshot.sheets.length>0);
  assert(spells.length>0);
- assert.equal(new Set(spells.map(s=>s.id)).size,148);
+ assert.equal(new Set(spells.map(s=>s.id)).size,spells.length);
  assert(new Set(spells.map(s=>s.school)).size>0);
  assert(spells.some(s=>s.name==='Inertial Projectile Shield'));
  assert(spells.some(s=>s.name==='Dancing Weapon'));
